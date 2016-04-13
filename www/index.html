@@ -1,99 +1,71 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>My App</title>
-    <!-- Path to Framework7 Library CSS-->
-    <link rel="stylesheet" href="Framework7/css/framework7.material.min.css">
-    <link rel="stylesheet" href="Framework7/css/framework7.material.colors.min.css">
+<head>
+	<title>Controle Financeiro</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"/>
-    <!-- Path to your custom app styles-->
-    <link rel="stylesheet" href="css/my-app.css">
-  </head>
-  <body class="theme-deeppurple"> 
-    <!-- Status bar overlay for fullscreen mode-->
-    <div class="statusbar-overlay"></div>
-    <!-- Panels overlay-->
-    <div class="panel-overlay"></div>
-    <div class="panel panel-left panel-cover">
-      <div class="content-block">
-        <p>Left panel content goes here</p>
-      </div>
-    </div>
-    <div class="panel panel-right panel-cover">
-      <div class="content-block">
-        <p>Right panel content goes here</p>
-      </div>
-    </div>
-    <div class="views">
-      <div class="view view-main">
-        <div class="pages">
-          <div class="page navbar-fixed">
-            
-            <div class="navbar">
-              <div class="navbar-inner">
-                <div class="left">
-                  <a href="#" data-panel="left" class="link icon-only open-panel">
-                      <i class="icon icon-bars"></i>
-                  </a>
-                </div>
-                <div class="center">Economy Plus</div>
-              </div>
-            </div>
+	<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="Framework7/css/framework7.material.material.css">
 
-             <div class="speed-dial">
-              <!-- FAB inside will open Speed Dial actions -->
-              <a href="#" class="floating-button">
-                <!-- First icon is visible when Speed Dial actions are closed -->
-                <i class="icon icon-plus"></i>
-                <!-- Second icon is visible when Speed Dial actions are opened -->
-                <i class="icon icon-close"></i>
-              </a>
-              <!-- Speed Dial Actions -->
-              <div class="speed-dial-buttons">
-                <!-- First Speed Dial button -->
-                <a href="#">
-                  <i class="fa fa-search"></i>
-                </a>
-                <!-- Second Speed Dial  button -->
-                <a href="#">
-                  <i class="fa fa-cogs"></i>
-                </a>
-                <!-- Third Speed Dial  button -->
-                <a href="CadastroReceitas.html">
-                  <i class="fa fa-line-chart"></i>
-                </a>
-              </div>
-            </div>
+	<link rel="stylesheet" type="text/css" href="jquery/jquery.mobile-1.4.5.min.css"/>
+	<link rel="stylesheet" type="text/css" href="jquery/jquery-ui.min.css"/>
 
-            <div class="page-content">
-              <div class="content-block-title">Welcome</div>
-              <div class="content-block">
-                <p>Receitas:</p>
-                <p>Despesas:</p>
-              </div>
-            </div>
+	<link rel="stylesheet" type="text/css" href="jquery/custom-theme.min.css"/>
+	<link rel="stylesheet" type="text/css" href="jquery/jquery.mobile.icons.min.css"/>
+	<link rel="stylesheet" type="text/css" href="jquery/jquery.mobile.structure-1.4.5.min.css"/>
 
-            <!--<div class="toolbar">
-              <div class="toolbar-inner">
-                Hello
-              </div>
-            </div>--> 
-          </div>
-        </div>
-      </div>
-    </div>
+	<link rel="stylesheet" href="css/my-app.css">
 
-	  <script type="text/javascript" src="cordova.js"></script>
+</head>
+<body>
+	<div data-role="page" data-theme="a">
+		<div data-role="panel" data-display="overlay" id="menuPanel">
+		    <div data-role="header">
+				<h1>Menu</h1>
+			</div>
+			<div data-role="content" >
+			<h3 class="ui-bar ui-bar-a ui-corner-all">Resumo</h3>
+		    <div class="ui-body">
+				<p>Receitas: </p>
+				<p>Despesas: </p>
+		    </div>
+			<h3 class="ui-bar ui-bar-a ui-corner-all">Resumo</h3>
+		    <div class="ui-body">
+				<p>Receitas: </p>
+				<p>Despesas: </p>
+		    </div>
+		</div>
+		</div>
 
-    <!-- Path to Framework7 Library JS-->
-    <script type="text/javascript" src="Framework7/js/framework7.min.js"></script>
-    <!-- Path to your app js-->
+		<div data-role="header">
+			<a href="#menuPanel" data-icon="home" data-iconpos="notext"></a>
+			<h5>ECONOMY PLUS</h5>
+			<a href="#menuPanel" data-icon="grid" data-iconpos="notext"></a>
+		</div>
+		<div data-role="content" >
+			<h3 class="ui-bar ui-bar-a ui-corner-all">Resumo</h3>
+		    <div class="ui-body">
+				<p>Receitas: </p>
+				<p>Despesas: </p>
+		    </div>
+			<h3 class="ui-bar ui-bar-a ui-corner-all">Resumo</h3>
+		    <div class="ui-body">
+				<p>Receitas: </p>
+				<p>Despesas: </p>
+		    </div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="cordova.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="jquery/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="jquery/jquery-ui.min.js"></script>
+	
     <script type="text/javascript" src="js/my-app.js"></script>
     <script type="text/javascript" src="js/my-app-banco.js"></script>
-  </body>
+
+    <script type="text/javascript" src="Framework7/js/framework7.min.js"></script>
+
+</body>
 </html>

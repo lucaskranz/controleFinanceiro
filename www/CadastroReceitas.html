@@ -15,105 +15,136 @@
       <title>Cadastro de Receitas</title>
     
    </head>
-   <body class="theme-deeppurple"> 
-      <div class="navbar">
-         <div class="navbar-inner">
-            <div class="left">
-               <a href="#" data-panel="left" class="link icon-only open-panel">
-                  <i class="icon icon-bars"></i>
-               </a>
+   <body class="theme-deeppurple">
+      <div class="pages">
+         <div class="page navbar-fixed">
+            <div class="navbar">
+               <div class="navbar-inner">
+                  <div class="left">
+                     <a href="#" data-panel="left" class="link icon-only open-panel">
+                        <i class="icon icon-bars"></i>
+                     </a>
+                  </div>
+               <div class="center">Receitas e Despesas</div>
+               </div>
             </div>
-         <div class="center">Economy Plus</div>
+            <div class="page-content">
+               <div class="list-block inset">
+                  <ul>
+                     <li>
+                        <a href="#" class="item-link smart-select">
+                           <select id="sltTipo" name="tipo">
+                              <option value="1" selected>Despesa</option>
+                              <option value="2">Receita</option>
+                           </select>
+                           <div class="item-content">
+                              <div class="item-media"><i class="fa fa-sort-desc"></i></div>
+                              <div class="item-inner"> 
+                                 <div class="item-title label">Tipo</div>
+                                 <!-- Selected value, not required -->
+                                 <div class="item-after">Despesa</div>
+                              </div>
+                           </div>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="#" class="item-link smart-select">
+                           <select id="sltCategoria" name="categoria">
+                              <option value="1" selected>Teste</option>
+                           </select>
+                           <div class="item-content">
+                              <div class="item-media"><i class="fa fa-list-ul"></i></div>
+                              <div class="item-inner"> 
+                                 <div class="item-title label">Categoria</div>
+                                 <!-- Selected value, not required -->
+                                 <div class="item-after">Teste</div>
+                              </div>
+                           </div>
+                        </a>
+                     </li>
+                     <li>
+                        <div class="item-content">
+                           <div class="item-media"><i class="fa fa-calendar"></i></div>
+                           <div class="item-inner"> 
+                              <div class="item-title label">Data</div>
+                              <div class="item-input">
+                                 <input type="text" id="txtData" placeholder="Data" readonly id="calendar">
+                              </div>
+                           </div>
+                        </div>
+                     </li>
+                     <li>
+                        <div class="item-content">
+                           <div class="item-media"><i class="fa fa-dollar"></i></div>
+                           <div class="item-inner"> 
+                              <div class="item-title label">Valor (R$)</div>
+                              <div class="item-input">
+                                 <input type="text" id="txtValor" name='valor' placeholder="Valor da receita">
+                              </div>
+                           </div>
+                        </div>
+                     </li>
+                     <li>
+                        <div class="item-content">
+                           <div class="item-media"><i class="fa fa-sort"></i></div>
+                           <div class="item-inner"> 
+                              <div class="item-title label">Qtde. Parcelas</div>
+                              <div class="item-input">
+                                 <input type="number" id="txtQtdParcela" value='1' min='1'>
+                              </div>
+                           </div>
+                        </div>
+                     </li>
+                     <li>
+                        <div class="item-content">
+                           <div class="item-media"><i class="fa fa-file-text"></i></div>
+                           <div class="item-inner"> 
+                              <div class="item-title label">Observação</div>
+                              <div class="item-input">
+                                 <input type="text" id="txtObservacao" name='descricao' placeholder="Descrição da receita">
+                              </div>
+                           </div>
+                        </div>
+                     </li>
+                  </ul>
+               </div> 
+               <div class='row center'>
+                  <p class="buttons-row">
+                     <div class='col-33'>
+                        <p><a href="" onclick="CadastrarReceitaDespesa()" class="button button-big button-fill">Cadastrar</a></p>      
+                     </div>
+                  </p>
+               </div>
+            </div> 
          </div>
       </div>
-      <div class="page-content">
-      
-         <div class="list-block">
-          <ul>
-            <li>
-               <div class="item-content">
-                  <div class="item-media"><i class="fa fa-list-ul"></i></div>
-                  <div class="item-inner"> 
-                     <div class="item-title label">Categoria</div>
-                     <div class="item-input">
-                        <select name='categoria'>
-                           <option></option>
-                           <option></option>
-                     </select>
-                     </div>
-                  </div>
-               </div>
-            </li>
-            
-            <li>
-               <div class="item-content">
-                  <div class="item-media"><i class="fa fa-calendar"></i></div>
-                  <div class="item-inner"> 
-                     <div class="item-title label">Data</div>
-                     <div class="item-input">
-                        <input type="date" name='data' placeholder="Data da receita" value="2016-01-01">
-                     </div>
-                  </div>
-               </div>
-            </li>
-
-            <li>
-               <div class="item-content">
-                  <div class="item-media"><i class="fa fa-dollar"></i></div>
-                  <div class="item-inner"> 
-                     <div class="item-title label">Valor (R$)</div>
-                     <div class="item-input">
-                        <input type="text" name='valor' placeholder="Valor da receita">
-                     </div>
-                  </div>
-               </div>
-            </li>
-            
-            <li>
-               <div class="item-content">
-                  <div class="item-media"><i class="fa fa-sort"></i></div>
-                  <div class="item-inner"> 
-                     <div class="item-title label">Qtde. Parcelas</div>
-                     <div class="item-input">
-                        <input type="number" value='1' min='1'>
-                     </div>
-                  </div>
-               </div>
-            </li>
-
-            <li>
-               <div class="item-content">
-                  <div class="item-media"><i class="fa fa-file-text"></i></div>
-                  <div class="item-inner"> 
-                     <div class="item-title label">Observação</div>
-                     <div class="item-input">
-                        <input type="text" name='descricao' placeholder="Descrição da receita">
-                     </div>
-                  </div>
-               </div>
-            </li>
-            
-            </ul>
-            
-         </div> 
-         <div class='row'>
-            <div class='col-33'></div>
-            <div class='col-33'>
-               <p><a href="index.html" class="button button-big button-fill color-blue button-round active">Cadastrar</a></p>      
-            </div>
-            <div class='col-33'></div>
-         </div>
-         
- 
-      </div> 
-      
-
-
-
       <script type="text/javascript" src="cordova.js"></script>
       <script type="text/javascript" src="Framework7/js/framework7.min.js"></script>
       <script type="text/javascript" src="js/my-app.js"></script>
       <script type="text/javascript" src="js/my-app-banco.js"></script>
+
+      <script type="text/javascript">
+
+         var calendarDateFormat = myApp.calendar({
+             input: '#calendar',
+             dateFormat: 'dd/mm/yyyy'
+         });
+
+         function CadastrarReceitaDespesa(){
+            var id = 0; // pois esta salvando, quando editar passa o id
+            var tipo = $$('#sltTipo').val(); // receita ou despesa
+            var categoria = $$('#sltCategoria').val(); // id da categoria
+            var valor = $$('#txtValor').val();
+            var data = $$('#txtData').val();
+            var qtdParcelas = $$('#txtQtdParcela').val();
+            var observacao = $$('#txtObservacao').val();
+
+            alert(id + "\n" + tipo + "\n" + categoria + "\n" + valor + "\n" + data + "\n" + qtdParcelas + "\n" + observacao);
+
+            SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao);
+         }
+
+      </script>
 
    </body>
 </html>
