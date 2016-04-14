@@ -11,6 +11,9 @@ function onDeviceReady() {
         }, 
         function(erro){
             myApp.alert('Erro ao iniciar o banco de dados!', 'Erro');
+        }, 
+        function(){
+            alert('Sucesso!', 'Sucesso');
         }
     );
 }

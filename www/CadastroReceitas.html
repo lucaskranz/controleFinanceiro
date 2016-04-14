@@ -1,150 +1,116 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-      <meta name="apple-mobile-web-app-capable" content="yes">
-      <meta name="apple-mobile-web-app-status-bar-style" content="black">
-      <!-- Path to Framework7 Library CSS-->
-      <link rel="stylesheet" href="Framework7/css/framework7.material.min.css">
-      <link rel="stylesheet" href="Framework7/css/framework7.material.colors.min.css">
+<head>
+   <title>Cadastro de Receitas</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"/>
-      <!-- Path to your custom app styles-->
-      <link rel="stylesheet" href="css/my-app.css">
-      <title>Cadastro de Receitas</title>
-    
-   </head>
-   <body class="theme-deeppurple">
-      <div class="pages">
-         <div class="page navbar-fixed">
-            <div class="navbar">
-               <div class="navbar-inner">
-                  <div class="left">
-                     <a href="#" data-panel="left" class="link icon-only open-panel">
-                        <i class="icon icon-bars"></i>
-                     </a>
-                  </div>
-               <div class="center">Receitas e Despesas</div>
-               </div>
-            </div>
-            <div class="page-content">
-               <div class="list-block inset">
-                  <ul>
-                     <li>
-                        <a href="#" class="item-link smart-select">
-                           <select id="sltTipo" name="tipo">
-                              <option value="1" selected>Despesa</option>
-                              <option value="2">Receita</option>
-                           </select>
-                           <div class="item-content">
-                              <div class="item-media"><i class="fa fa-sort-desc"></i></div>
-                              <div class="item-inner"> 
-                                 <div class="item-title label">Tipo</div>
-                                 <!-- Selected value, not required -->
-                                 <div class="item-after">Despesa</div>
-                              </div>
-                           </div>
-                        </a>
-                     </li>
-                     <li>
-                        <a href="#" class="item-link smart-select">
-                           <select id="sltCategoria" name="categoria">
-                              <option value="1" selected>Teste</option>
-                           </select>
-                           <div class="item-content">
-                              <div class="item-media"><i class="fa fa-list-ul"></i></div>
-                              <div class="item-inner"> 
-                                 <div class="item-title label">Categoria</div>
-                                 <!-- Selected value, not required -->
-                                 <div class="item-after">Teste</div>
-                              </div>
-                           </div>
-                        </a>
-                     </li>
-                     <li>
-                        <div class="item-content">
-                           <div class="item-media"><i class="fa fa-calendar"></i></div>
-                           <div class="item-inner"> 
-                              <div class="item-title label">Data</div>
-                              <div class="item-input">
-                                 <input type="text" id="txtData" placeholder="Data" readonly id="calendar">
-                              </div>
-                           </div>
-                        </div>
-                     </li>
-                     <li>
-                        <div class="item-content">
-                           <div class="item-media"><i class="fa fa-dollar"></i></div>
-                           <div class="item-inner"> 
-                              <div class="item-title label">Valor (R$)</div>
-                              <div class="item-input">
-                                 <input type="text" id="txtValor" name='valor' placeholder="Valor da receita">
-                              </div>
-                           </div>
-                        </div>
-                     </li>
-                     <li>
-                        <div class="item-content">
-                           <div class="item-media"><i class="fa fa-sort"></i></div>
-                           <div class="item-inner"> 
-                              <div class="item-title label">Qtde. Parcelas</div>
-                              <div class="item-input">
-                                 <input type="number" id="txtQtdParcela" value='1' min='1'>
-                              </div>
-                           </div>
-                        </div>
-                     </li>
-                     <li>
-                        <div class="item-content">
-                           <div class="item-media"><i class="fa fa-file-text"></i></div>
-                           <div class="item-inner"> 
-                              <div class="item-title label">Observação</div>
-                              <div class="item-input">
-                                 <input type="text" id="txtObservacao" name='descricao' placeholder="Descrição da receita">
-                              </div>
-                           </div>
-                        </div>
-                     </li>
-                  </ul>
-               </div> 
-               <div class='row center'>
-                  <p class="buttons-row">
-                     <div class='col-33'>
-                        <p><a href="" onclick="CadastrarReceitaDespesa()" class="button button-big button-fill">Cadastrar</a></p>      
-                     </div>
-                  </p>
-               </div>
-            </div> 
-         </div>
+   <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="Framework7/css/framework7.material.material.css">
+
+   <link rel="stylesheet" type="text/css" href="jquery/jquery.mobile-1.4.5.min.css"/>
+   <link rel="stylesheet" type="text/css" href="jquery/jquery-ui.min.css"/>
+
+   <link rel="stylesheet" type="text/css" href="jquery/custom-theme.min.css"/>
+   <link rel="stylesheet" type="text/css" href="jquery/jquery.mobile.icons.min.css"/>
+   <link rel="stylesheet" type="text/css" href="jquery/jquery.mobile.structure-1.4.5.min.css"/>
+
+   <link rel="stylesheet" href="css/my-app.css">
+</head>
+<body>
+   <div data-role="page" data-theme="b">
+      <div data-role="header">
+         <a href="index.html" data-icon="back" data-rel="back" data-iconpos="notext"></a>
+         <h5>Economy +</h5>
       </div>
-      <script type="text/javascript" src="cordova.js"></script>
-      <script type="text/javascript" src="Framework7/js/framework7.min.js"></script>
-      <script type="text/javascript" src="js/my-app.js"></script>
-      <script type="text/javascript" src="js/my-app-banco.js"></script>
+      <div data-role="content" >
 
-      <script type="text/javascript">
+         <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+               <legend>Tipo</legend>
+               <input type="radio" name="radio-receita-despesa" id="radio-despesa" value="despesa" checked="checked">
+               <label for="radio-despesa">Despesa</label>
+               <input type="radio" name="radio-receita-despesa" id="radio-receita" value="receita">
+               <label for="radio-receita">Receita</label>
+            </fieldset>
+         </div>
 
-         var calendarDateFormat = myApp.calendar({
-             input: '#calendar',
-             dateFormat: 'dd/mm/yyyy'
-         });
+         <div data-role="fieldcontain">
+            <label for="select-tipo" class="select">Tipo 2</label>
+            <select name="select-tipo" id="select-tipo" data-native-menu="false" data-mini="true">
+                <option value="0">Tipo</option>
+                <option value="1">Despesa</option>
+                <option value="2">Receita</option>
+            </select>
+         </div>
 
-         function CadastrarReceitaDespesa(){
-            var id = 0; // pois esta salvando, quando editar passa o id
-            var tipo = $$('#sltTipo').val(); // receita ou despesa
-            var categoria = $$('#sltCategoria').val(); // id da categoria
-            var valor = $$('#txtValor').val();
-            var data = $$('#txtData').val();
-            var qtdParcelas = $$('#txtQtdParcela').val();
-            var observacao = $$('#txtObservacao').val();
+         <div data-role="fieldcontain">
+            <label for="select-categoria" class="select">Categoria</label>
+            <select name="select-categoria" id="select-categoria" data-native-menu="false" data-mini="true">
+                <option value="0">Categoria</option>
+                <option value="1">Isso</option>
+                <option value="2">Tem que</option>
+                <option value="3">Montar</option>
+            </select>
+         </div>
 
-            alert(id + "\n" + tipo + "\n" + categoria + "\n" + valor + "\n" + data + "\n" + qtdParcelas + "\n" + observacao);
+         <div data-role="">
+           <label for="txtData">Data</label>  
+           <input id="txtData" name="txtData" type="text" />
+         </div>
 
-            SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao);
-         }
+         <div data-role="">
+           <label for="txtValor">Valor (R$)</label>  
+           <input type="number" name="txtValor" pattern="[0-9]*" id="txtValor" value="0,00">
+         </div>
 
-      </script>
+         <div data-role="">
+           <label for="txtQtdParcela">Qtde. Parcelas</label>  
+           <input type="number" name="txtQtdParcela" pattern="[0-9]*" id="txtQtdParcela" value="1">
+         </div>
 
-   </body>
+         <div data-role="fieldcontain">
+           <label for="txtObservacao">Observação</label>  
+           <textarea cols="40" rows="8" name="txtObservacao" id="txtObservacao" ></textarea>
+         </div>                    
+                     
+         <input type="button" value="Cadastrar" onclick="CadastrarReceitaDespesa()">
+
+      </div>
+   </div>
+
+   <script type="text/javascript" src="cordova.js"></script>
+
+   <script type="text/javascript" charset="utf-8" src="jquery/jquery-1.11.3.min.js"></script>
+   <script type="text/javascript" charset="utf-8" src="jquery/jquery.mobile-1.4.5.min.js"></script>
+   <script type="text/javascript" charset="utf-8" src="jquery/jquery-ui.min.js"></script>
+   
+   <script type="text/javascript" src="js/my-app.js"></script>
+   <script type="text/javascript" src="js/my-app-banco.js"></script>
+
+   <script type="text/javascript" src="Framework7/js/framework7.min.js"></script>
+
+   <script type="text/javascript">
+
+      $( "#txtData" ).datepicker({
+         dateFormat: "dd/mm/yy"
+      });
+
+      function CadastrarReceitaDespesa(){
+         var id = 0; // pois esta salvando, quando editar passa o id
+         var tipo = $('#select-tipo').val(); // receita ou despesa
+         var categoria = $('#select-categoria').val(); // id da categoria
+         var valor = $('#txtValor').val();
+         var data = $('#txtData').val();
+         var qtdParcelas = $('#txtQtdParcela').val();
+         var observacao = $('#txtObservacao').val();
+
+         alert(id + "\n" + tipo + "\n" + categoria + "\n" + valor + "\n" + data + "\n" + qtdParcelas + "\n" + observacao);
+
+         //SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao);
+      }
+
+   </script>
+
+</body>
 </html>
