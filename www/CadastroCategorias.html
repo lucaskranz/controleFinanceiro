@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Cadastro de Receitas</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="Framework7/css/framework7.material.material.css">
+
+   <link rel="stylesheet" type="text/css" href="jquery/jquery.mobile-1.4.5.min.css"/>
+   <link rel="stylesheet" type="text/css" href="jquery/jquery-ui.min.css"/>
+
+   <link rel="stylesheet" type="text/css" href="jquery/custom-theme.min.css"/>
+   <link rel="stylesheet" type="text/css" href="jquery/jquery.mobile.icons.min.css"/>
+   <link rel="stylesheet" type="text/css" href="jquery/jquery.mobile.structure-1.4.5.min.css"/>
+
+   <link rel="stylesheet" href="css/my-app.css">
+</head>
+<body>
+   <div data-role="page" data-theme="b">
+      <div data-role="header">
+         <a href="index.html" data-icon="back" data-rel="back" data-iconpos="notext"></a>
+         <h5>Cadastro de Categoria</h5>
+      </div>
+      <div data-role="content" >
+          <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+               <legend>Tipo</legend>
+               <input type="radio" name="radio-receita-despesa" id="radio-despesa" value="despesa" checked="checked">
+               <label for="radio-despesa">Despesa</label>
+               <input type="radio" name="radio-receita-despesa" id="radio-receita" value="receita">
+               <label for="radio-receita">Receita</label>
+            </fieldset>
+         </div>
+
+         <div data-role="">
+           <label for="txtDescricao">Descrição</label>  
+           <input id="txtDescricao" name="txtDescricao" type="text" />
+         </div>
+         <input type="button" value="Cadastrar Categoria" onclick="CadastrarCategoria()">    
+         
+      </div>
+   </div>
+
+   <script type="text/javascript" src="cordova.js"></script>
+
+   <script type="text/javascript" charset="utf-8" src="jquery/jquery-1.11.3.min.js"></script>
+   <script type="text/javascript" charset="utf-8" src="jquery/jquery.mobile-1.4.5.min.js"></script>
+   <script type="text/javascript" charset="utf-8" src="jquery/jquery-ui.min.js"></script>
+   
+   <script type="text/javascript" src="js/my-app.js"></script>
+   <script type="text/javascript" src="js/my-app-banco.js"></script>
+
+   <script type="text/javascript" src="Framework7/js/framework7.min.js"></script>
+
+   <script type="text/javascript">
+      function CadastrarCategoria(){
+         var id = 0; // pois esta salvando, quando editar passa o id
+         var tipo = $('#radio-receita-despesa').val(); // tipo categoria
+         var descricao = $('#txtDescricao').val(); // id da categoria
+         alert(id + " " + tipo + " " + descricao + "");
+        // alert(id + "\n" + tipo + "\n" + descricao + "\n");
+
+         //SalvarCategoria(id, descricao, tipo);
+      }
+
+   </script>
+  
+
+</body>
+</html>
