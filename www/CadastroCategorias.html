@@ -27,10 +27,10 @@
           <div data-role="fieldcontain">
             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                <legend>Tipo</legend>
-               <input type="radio" name="radio-receita-despesa" id="radio-despesa" value="despesa" checked="checked">
-               <label for="radio-despesa">Despesa</label>
-               <input type="radio" name="radio-receita-despesa" id="radio-receita" value="receita">
-               <label for="radio-receita">Receita</label>
+               <select id="tipo">
+                 <option value="despesa">Despesa</option>
+                 <option value="receita">Receita</option>
+               </select>
             </fieldset>
          </div>
 
@@ -57,7 +57,7 @@
    <script type="text/javascript">
       function CadastrarCategoria(){
          var id = 0; // pois esta salvando, quando editar passa o id
-         var tipo = $('#radio-receita-despesa').val(); // tipo categoria
+         var tipo = $('#tipo').val(); // tipo categoria
          var descricao = $('#txtDescricao').val(); // id da categoria
          alert(id + " " + tipo + " " + descricao + "");
         // alert(id + "\n" + tipo + "\n" + descricao + "\n");
