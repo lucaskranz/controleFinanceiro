@@ -1,3 +1,8 @@
+
+//###################################################################
+//                   Funções de inicialização
+//###################################################################
+
 document.addEventListener('deviceready', onDeviceReady, false);
 var BancoDados;
 function onDeviceReady() {
@@ -10,10 +15,52 @@ function onDeviceReady() {
             e.executeSql('CREATE TABLE IF NOT EXISTS receita_despesa (id INTEGER PRIMARY KEY, tipo INTEGER, categoria INTEGER, valor NUMERIC, data TEXT, quantidade_parcelas INTEGER, observacao TEXT, FOREIGN KEY(categoria) REFERENCES categoria(id));');
         }, 
         function(erro){
-            myApp.alert('Erro ao iniciar o banco de dados!', 'Erro');
+            alert('Erro ao iniciar o banco de dados!', 'Erro');
         }, 
         function(){
-            alert('Sucesso!', 'Sucesso');
+            // sucesso, criou as tabelas se não existiam
+            // agora vamos inserir as categorias padrões
+            
+            VerificaCountCategoria();
+        }
+    );
+}
+
+function VerificaCountCategoria(){
+    var contador = 1; // um porque se der erro não cria nada no banco
+    BancoDados.transaction(
+        function (e){
+            e.executeSql('SELECT count(1) as c FROM categoria', [], 
+                function (e, results){
+                    contador = results.rows.item(0).c;
+                    if (contador <= 0){ 
+                        // se não tem categoria nenhuma, insere as padrões
+                        InsereCategoriasPadroes();
+                    }
+                }, 
+                function(erro){
+                    myApp.alert("Erro ao inserir as categorias padrões!", 'Erro');
+                }
+            );
+        },  
+        function(erro){
+            myApp.alert("Erro ao inserir as categorias padrões!", 'Erro');
+        }
+    );
+}
+
+function InsereCategoriasPadroes(){
+    BancoDados.transaction(
+        function (e){
+            e.executeSql('INSERT INTO categoria (descricao, tipo) VALUES ("Salário", 2)');
+            e.executeSql('INSERT INTO categoria (descricao, tipo) VALUES ("Mercado", 1)');
+            e.executeSql('INSERT INTO categoria (descricao, tipo) VALUES ("Alimentação", 1)');
+            e.executeSql('INSERT INTO categoria (descricao, tipo) VALUES ("Combustível", 1)');
+            e.executeSql('INSERT INTO categoria (descricao, tipo) VALUES ("Moradia", 1)');
+            e.executeSql('INSERT INTO categoria (descricao, tipo) VALUES ("Saúde", 1)');
+        }, 
+        function(erro){
+            alert('Erro ao inserir as categorias padrões!', 'Erro');
         }
     );
 }
@@ -22,6 +69,9 @@ function onDeviceReady() {
 //                   Funções que salvam
 //###################################################################
 
+// Tipo terá duas opções:
+// 1 - Despesa
+// 2 - Receita
 function SalvarCategoria(id, descricao, tipo){
     BancoDados.transaction(
         function (e){
@@ -67,17 +117,32 @@ function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, obs
 //                   Funções que buscam
 //###################################################################
 
-function BuscarCategoria() {
+function BuscarCategoria(callback, tipo) {
     BancoDados.transaction(
         function (e){
-            e.executeSql('SELECT * FROM categoria', [], ResultadoCategoria, 
+            var sql = "";
+            if (tipo > 0){
+                sql = 'SELECT * FROM categoria WHERE tipo = ' + tipo
+            }else{
+                sql = 'SELECT * FROM categoria'
+            }
+            e.executeSql(sql, [], 
+                function (e, results){
+                    var len = results.rows.length;
+                    var resultado = new Array();
+                    for (var i=0; i<len; i++){
+                        var linha = {Id: results.rows.item(i).id, Descricao: results.rows.item(i).descricao, Tipo: results.rows.item(i).tipo};
+                        resultado.push(linha);
+                    }
+                    callback(resultado);
+                }, 
                 function(erro){
-                    myApp.alert("Erro ao buscar!", 'Erro');
+                    myApp.alert("Erro ao buscar as categoria!", 'Erro');
                 }
             );
         },  
         function(erro){
-            myApp.alert("Erro ao buscar!", 'Erro');
+            myApp.alert("Erro ao buscar as categoria!", 'Erro');
         }
     );
 }
@@ -104,13 +169,4 @@ function ResultadoReceitaDespesa(e, results){
        texto += "Id = " + results.rows.item(i).id + " Categoria =  " + results.rows.item(i).categoria + " Data =  " + results.rows.item(i).data + " Valor =  " + results.rows.item(i).valor + "\n";
     }
     myApp.alert(texto, 'receita despesa');
-}
-
-function ResultadoCategoria(e, results){
-    var len = results.rows.length;
-    var texto = "";
-    for (var i=0; i<len; i++){
-       texto += "Id = " + results.rows.item(i).id + " Descrição =  " + results.rows.item(i).descricao + " Tipo =  " + results.rows.item(i).tipo + "\n";
-    }
-    myApp.alert(texto, 'Categoria');
 }

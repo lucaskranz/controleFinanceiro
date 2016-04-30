@@ -28,29 +28,16 @@
          <div data-role="fieldcontain">
             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                <legend>Tipo</legend>
-               <input type="radio" name="radio-receita-despesa" id="radio-despesa" value="despesa" checked="checked">
+               <input type="radio" name="radio-receita-despesa" id="radio-despesa" value="despesa" checked="checked" onclick="CarregarCategoria(1);">
                <label for="radio-despesa">Despesa</label>
-               <input type="radio" name="radio-receita-despesa" id="radio-receita" value="receita">
+               <input type="radio" name="radio-receita-despesa" id="radio-receita" value="receita" onclick="CarregarCategoria(2);">
                <label for="radio-receita">Receita</label>
             </fieldset>
          </div>
 
          <div data-role="fieldcontain">
-            <label for="select-tipo" class="select">Tipo 2</label>
-            <select name="select-tipo" id="select-tipo" data-native-menu="false" data-mini="true">
-                <option value="0">Tipo</option>
-                <option value="1">Despesa</option>
-                <option value="2">Receita</option>
-            </select>
-         </div>
-
-         <div data-role="fieldcontain">
             <label for="select-categoria" class="select">Categoria</label>
             <select name="select-categoria" id="select-categoria" data-native-menu="false" data-mini="true">
-                <option value="0">Categoria</option>
-                <option value="1">Isso</option>
-                <option value="2">Tem que</option>
-                <option value="3">Montar</option>
             </select>
          </div>
 
@@ -95,6 +82,19 @@
       $( "#txtData" ).datepicker({
          dateFormat: "dd/mm/yy"
       });
+
+      function CarregarCategoria(tipo){
+        var resultado = function(result) {
+          $('#select-categoria').empty();
+          var sltTipoPagamentoDespesa = document.getElementById("select-categoria");
+          for (var i = 0; i < result.length; i++){
+            sltTipoPagamentoDespesa.options[i] = new Option(result[i].Descricao, result[i].Id);
+          }
+          $("#select-categoria").selectmenu("refresh", true);
+        };
+
+        BuscarCategoria(resultado, tipo);
+      }
 
       function CadastrarReceitaDespesa(){
          var id = 0; // pois esta salvando, quando editar passa o id
