@@ -25,13 +25,11 @@
       </div>
       <div data-role="content" >
           <div data-role="fieldcontain">
-            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-               <legend>Tipo</legend>
-               <select id="tipo">
-                 <option value="despesa">Despesa</option>
-                 <option value="receita">Receita</option>
-               </select>
-            </fieldset>
+            <label for="select-tipo" class="select">Tipo</label>
+            <select name="select-tipo" id="select-tipo" data-native-menu="false" data-mini="true">
+              <option value="despesa">Despesa</option>
+              <option value="receita">Receita</option>
+            </select>
          </div>
 
          <div data-role="">
@@ -57,10 +55,9 @@
    <script type="text/javascript">
       function CadastrarCategoria(){
          var id = 0; // pois esta salvando, quando editar passa o id
-         var tipo = $('#tipo').val(); // tipo categoria
+         var tipo = $('#select-tipo').val(); // tipo categoria
          var descricao = $('#txtDescricao').val(); // id da categoria
-         alert(id + " " + tipo + " " + descricao + "");
-        // alert(id + "\n" + tipo + "\n" + descricao + "\n");
+         alert(id + "\n" + tipo + "\n" + descricao + "\n");
 
          //SalvarCategoria(id, descricao, tipo);
       }
