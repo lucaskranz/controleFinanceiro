@@ -10,7 +10,7 @@ function onDeviceReady() {
             e.executeSql('CREATE TABLE IF NOT EXISTS receita_despesa (id INTEGER PRIMARY KEY, tipo INTEGER, categoria INTEGER, valor NUMERIC, data TEXT, quantidade_parcelas INTEGER, observacao TEXT, FOREIGN KEY(categoria) REFERENCES categoria(id));');
         }, 
         function(erro){
-            myApp.alert('Erro ao iniciar o banco de dados!', 'Erro');
+            alert('Erro ao iniciar o banco de dados!', 'Erro');
         }, 
         function(){
             alert('Sucesso!', 'Sucesso');
@@ -32,11 +32,11 @@ function SalvarCategoria(id, descricao, tipo){
             }
         }, 
         function(erro){
-            myApp.alert('Erro ao salvar!', 'Erro');
-            //myApp.alert(erro.code + ' / ' + erro.message);
+            alert('Erro ao salvar!', 'Erro');
+            //alert(erro.code + ' / ' + erro.message);
         }, 
         function(){
-            myApp.alert('Salvo com sucesso!', 'Sucesso');
+            alert('Salvo com sucesso!', 'Sucesso');
         }
     );
 }
@@ -54,11 +54,11 @@ function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, obs
             e.executeSql(comando);
         }, 
         function(erro){
-            myApp.alert('Erro ao salvar!', 'Erro');
-            //myApp.alert(erro.code + ' / ' + erro.message);
+            alert('Erro ao salvar!', 'Erro');
+            //alert(erro.code + ' / ' + erro.message);
         }, 
         function(){
-            myApp.alert('Salvo com sucesso!', 'Sucesso');
+            alert('Salvo com sucesso!', 'Sucesso');
         }
     );
 }
@@ -72,45 +72,92 @@ function BuscarCategoria() {
         function (e){
             e.executeSql('SELECT * FROM categoria', [], ResultadoCategoria, 
                 function(erro){
-                    myApp.alert("Erro ao buscar!", 'Erro');
+                    alert("Erro ao buscar!", 'Erro');
                 }
             );
         },  
         function(erro){
-            myApp.alert("Erro ao buscar!", 'Erro');
+            alert("Erro ao buscar!", 'Erro');
         }
     );
 }
 
-function BuscarReceitaDespesa() {
+function TotalReceitaDespesa(dataInicial, dataFinal, categoria){
+    var query='SELECT SUM(valor) AS total, tipo FROM receita_despesa';
     BancoDados.transaction(
         function (e){
-            e.executeSql('SELECT * FROM receita_despesa', [], ResultadoReceitaDespesa, 
+            if(dataInicial != '' && dataFinal != ''){
+                query += ' WHERE data >="' + dataInicial + '" and data <= "' + dataFinal + '"';
+            }
+            if(categoria != 0){
+                query += ' and categoria = ' + categoria;
+            }
+
+            query += ' GROUP BY tipo';
+
+            e.executeSql(query, [], ResultadoTotalReceitaDespesa,
                 function(erro){
-                    myApp.alert("Erro ao buscar!", 'Erro');
+                    alert("Erro ao buscar!", 'Erro');
+                }
+            );            
+        }                        
+    );                  
+      
+}
+
+function BuscarReceitaDespesa(dataInicial, dataFinal, categoria, tipo) {
+    var query = 'SELECT * FROM receita_despesa ';
+    BancoDados.transaction(
+        function (e){
+            if(dataInicial != '' && dataFinal != ''){
+                query += 'WHERE data >="' + dataInicial + '" and data <= "' + dataFinal + '"';
+            }
+            if(categoria != 0){
+                query += ' and categoria = ' + categoria;
+            }
+            if(tipo != 0){
+                query += ' and tipo = ' + tipo;
+            }
+            e.executeSql(query, [], ResultadoReceitaDespesa, 
+                function(erro){
+                    alert("Erro ao buscar!", 'Erro');
                 }
             );
         },  
         function(erro){
-            myApp.alert("Erro ao buscar!", 'Erro');
+            alert("Erro ao buscar!", 'Erro');
         }
     );
+}
+function ResultadoTotalReceitaDespesa(e, results){
+    var len = results.rows.length, texto = "";
+    
+    for (var i=0; i<len; i++){ 
+        if (results.rows.item(i).tipo == 1) // despesa
+            texto += "Despesa = " + results.rows.item(i).total + "\n";    
+        else // receita
+            texto += "Receita = " + results.rows.item(i).total + "\n";
+    }     
+    if (len == 1 && results.rows.item(0).tipo == 1)
+        texto += "Receita = 0";
+    else if (len == 1 && results.rows.item(0).tipo == 2)
+        texto += "Despesa = 0";
+
+    alert(texto);
 }
 
 function ResultadoReceitaDespesa(e, results){
-    var len = results.rows.length;
-    var texto = "";
+    var len = results.rows.length, texto = "";
     for (var i=0; i<len; i++){
-       texto += "Id = " + results.rows.item(i).id + " Categoria =  " + results.rows.item(i).categoria + " Data =  " + results.rows.item(i).data + " Valor =  " + results.rows.item(i).valor + "\n";
+        texto += "Id = " + results.rows.item(i).id + " Categoria =  " + results.rows.item(i).categoria + " Data =  " + results.rows.item(i).data + " Valor =  " + results.rows.item(i).valor + "\n";
     }
-    myApp.alert(texto, 'receita despesa');
+    alert(texto, 'receita despesa');
 }
 
 function ResultadoCategoria(e, results){
-    var len = results.rows.length;
-    var texto = "";
+    var len = results.rows.length, texto = "";
     for (var i=0; i<len; i++){
        texto += "Id = " + results.rows.item(i).id + " Descrição =  " + results.rows.item(i).descricao + " Tipo =  " + results.rows.item(i).tipo + "\n";
     }
-    myApp.alert(texto, 'Categoria');
+    alert(texto, 'Categoria');
 }
