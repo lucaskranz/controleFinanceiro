@@ -17,7 +17,7 @@
 
    <link rel="stylesheet" href="css/my-app.css">
 </head>
-<body>
+<body >
    <div data-role="page" data-theme="b">
       <div data-role="header">
          <a href="index.html" data-icon="back" data-rel="back" data-iconpos="notext"></a>
@@ -25,14 +25,13 @@
       </div>
       <div data-role="content" >
 
-         <div data-role="fieldcontain">
-            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-               <legend>Tipo</legend>
-               <input type="radio" name="radio-receita-despesa" id="radio-despesa" value="despesa" checked="checked" onclick="CarregarCategoria(1);">
-               <label for="radio-despesa">Despesa</label>
-               <input type="radio" name="radio-receita-despesa" id="radio-receita" value="receita" onclick="CarregarCategoria(2);">
-               <label for="radio-receita">Receita</label>
-            </fieldset>
+          <div data-role="fieldcontain">
+            <label for="select-tipo" class="select">Tipo</label>
+            <select name="select-tipo" id="select-tipo" data-native-menu="false" data-mini="true">
+              <option value="0">Tipo</option>
+              <option value="1">Despesa</option>
+              <option value="2">Receita</option>
+            </select>
          </div>
 
          <div data-role="fieldcontain">
@@ -81,6 +80,10 @@
 
       $( "#txtData" ).datepicker({
          dateFormat: "dd/mm/yy"
+      });
+
+      $("#select-tipo").change(function(){
+        CarregarCategoria($("#select-tipo").val());
       });
 
       function CarregarCategoria(tipo){
