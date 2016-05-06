@@ -141,11 +141,31 @@ function BuscarCategoria(callback, tipo) {
                     callback(resultado);
                 }, 
                 function(erro){
+<<<<<<< .mine
                     myApp.alert("Erro ao buscar as categoria!", 'Erro');
                     alert("Erro ao buscar!", 'Erro');
+=======
+                    alert("Erro ao buscar as categoria!", 'Erro');
+
+>>>>>>> .theirs
                 }
+<<<<<<< .mine
         );
     }
+
+
+
+
+
+=======
+            );
+        },  
+        function(erro){
+            alert("Erro ao buscar as categoria!", 'Erro');
+        }
+    );
+}
+>>>>>>> .theirs
 
 function TotalReceitaDespesa(dataInicial, dataFinal, categoria){
     var query='SELECT SUM(valor) AS total, tipo FROM receita_despesa';
@@ -167,7 +187,6 @@ function TotalReceitaDespesa(dataInicial, dataFinal, categoria){
             );            
         }                        
     );                  
-      
 }
 
 function BuscarReceitaDespesa(dataInicial, dataFinal, categoria, tipo) {
@@ -194,6 +213,7 @@ function BuscarReceitaDespesa(dataInicial, dataFinal, categoria, tipo) {
         }
     );
 }
+
 function ResultadoTotalReceitaDespesa(e, results){
     var len = results.rows.length, texto = "";
     
@@ -218,6 +238,7 @@ function ResultadoReceitaDespesa(e, results){
     }
     alert(texto, 'receita despesa');
 }
+<<<<<<< .mine
 
 function ResultadoCategoria(e, results){
     var len = results.rows.length, texto = "";
@@ -226,3 +247,13 @@ function ResultadoCategoria(e, results){
     }
     alert(texto, 'Categoria');
 }
+=======
+
+
+
+
+
+
+
+
+>>>>>>> .theirs
