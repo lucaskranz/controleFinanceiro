@@ -97,6 +97,7 @@
       }
 
       function CadastrarReceitaDespesa(){
+        alert("ihuu");
          var id = 0; // pois esta salvando, quando editar passa o id
          var tipo = $('#select-tipo').val(); // receita ou despesa
          var categoria = $('#select-categoria').val(); // id da categoria
@@ -107,7 +108,7 @@
 
          alert(id + "\n" + tipo + "\n" + categoria + "\n" + valor + "\n" + data + "\n" + qtdParcelas + "\n" + observacao);
 
-         //SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao);
+         SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao);
       }
 
    </script>
