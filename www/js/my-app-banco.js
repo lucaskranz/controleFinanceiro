@@ -73,11 +73,15 @@ function InsereCategoriasPadroes(){
 // 1 - Despesa
 // 2 - Receita
 function SalvarCategoria(id, descricao, tipo){
+            alert(id);
     BancoDados.transaction(
         function (e){
+    
             if(id > 0) {
+                alert("maior que 0");
                 e.executeSql('UPDATE categoria SET descricao = "' + descricao + '", tipo = ' + tipo + ' WHERE id = ' + id);
             } else {
+                alert("inserindo categoria");
                 e.executeSql('INSERT INTO categoria (descricao, tipo) VALUES ("' + descricao + '", ' + tipo + ')');
             }
         }, 
@@ -137,23 +141,11 @@ function BuscarCategoria(callback, tipo) {
                     callback(resultado);
                 }, 
                 function(erro){
-<<<<<<< HEAD
                     myApp.alert("Erro ao buscar as categoria!", 'Erro');
-=======
                     alert("Erro ao buscar!", 'Erro');
->>>>>>> d71daf884fe2aa27d3a0c22da8e80dd23a206ddb
                 }
-            );
-        },  
-        function(erro){
-<<<<<<< HEAD
-            myApp.alert("Erro ao buscar as categoria!", 'Erro');
-=======
-            alert("Erro ao buscar!", 'Erro');
->>>>>>> d71daf884fe2aa27d3a0c22da8e80dd23a206ddb
-        }
-    );
-}
+        );
+    }
 
 function TotalReceitaDespesa(dataInicial, dataFinal, categoria){
     var query='SELECT SUM(valor) AS total, tipo FROM receita_despesa';
@@ -226,8 +218,6 @@ function ResultadoReceitaDespesa(e, results){
     }
     alert(texto, 'receita despesa');
 }
-<<<<<<< HEAD
-=======
 
 function ResultadoCategoria(e, results){
     var len = results.rows.length, texto = "";
@@ -236,4 +226,3 @@ function ResultadoCategoria(e, results){
     }
     alert(texto, 'Categoria');
 }
->>>>>>> d71daf884fe2aa27d3a0c22da8e80dd23a206ddb
