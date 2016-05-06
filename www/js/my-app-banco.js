@@ -137,20 +137,12 @@ function BuscarCategoria(callback, tipo) {
                     callback(resultado);
                 }, 
                 function(erro){
-<<<<<<< HEAD
-                    myApp.alert("Erro ao buscar as categoria!", 'Erro');
-=======
-                    alert("Erro ao buscar!", 'Erro');
->>>>>>> d71daf884fe2aa27d3a0c22da8e80dd23a206ddb
+                    alert("Erro ao buscar as categoria!", 'Erro');
                 }
             );
         },  
         function(erro){
-<<<<<<< HEAD
-            myApp.alert("Erro ao buscar as categoria!", 'Erro');
-=======
-            alert("Erro ao buscar!", 'Erro');
->>>>>>> d71daf884fe2aa27d3a0c22da8e80dd23a206ddb
+            alert("Erro ao buscar as categoria!", 'Erro');
         }
     );
 }
@@ -175,7 +167,6 @@ function TotalReceitaDespesa(dataInicial, dataFinal, categoria){
             );            
         }                        
     );                  
-      
 }
 
 function BuscarReceitaDespesa(dataInicial, dataFinal, categoria, tipo) {
@@ -202,6 +193,7 @@ function BuscarReceitaDespesa(dataInicial, dataFinal, categoria, tipo) {
         }
     );
 }
+
 function ResultadoTotalReceitaDespesa(e, results){
     var len = results.rows.length, texto = "";
     
@@ -226,14 +218,3 @@ function ResultadoReceitaDespesa(e, results){
     }
     alert(texto, 'receita despesa');
 }
-<<<<<<< HEAD
-=======
-
-function ResultadoCategoria(e, results){
-    var len = results.rows.length, texto = "";
-    for (var i=0; i<len; i++){
-       texto += "Id = " + results.rows.item(i).id + " Descrição =  " + results.rows.item(i).descricao + " Tipo =  " + results.rows.item(i).tipo + "\n";
-    }
-    alert(texto, 'Categoria');
-}
->>>>>>> d71daf884fe2aa27d3a0c22da8e80dd23a206ddb
