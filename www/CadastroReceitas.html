@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <title>Cadastro de Receitas</title>
+   <title>Cadastro de Receitas/Despesas</title>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -42,7 +42,7 @@
 
          <div data-role="">
            <label for="txtData">Data</label>  
-           <input id="txtData" name="txtData" type="text" />
+           <input id="txtData" name="txtData" type="text" readonly />
          </div>
 
          <div data-role="">
@@ -108,7 +108,25 @@
          var qtdParcelas = $('#txtQtdParcela').val();
          var observacao = $('#txtObservacao').val();
 
-         alert(id + "\n" + tipo + "\n" + categoria + "\n" + valor + "\n" + data + "\n" + qtdParcelas + "\n" + observacao);
+         if(tipo <= 0){
+            alert("Selecione um tipo!");
+            return;
+         }
+
+         if(categoria <= 0){
+            alert("Selecione uma categoria!");
+            return;
+         }
+
+          if(data.trim() == ""){
+            alert("Digite uma data!");
+            return;
+         }
+
+        if(valor.trim() == ""){
+            alert("Digite um valor!");
+            return;
+         }
 
          SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao);
       }
