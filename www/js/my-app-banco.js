@@ -100,7 +100,6 @@ function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, obs
             } else {
                 comando = 'INSERT INTO receita_despesa (tipo, categoria, valor, data, quantidade_parcelas, observacao) VALUES (' + tipo + ', ' + categoria + ', ' + valor + ', "' + data + '", ' + qtdParcelas + ', "' + observacao + '")';
             }
-            alert(comando);
             e.executeSql(comando);
         }, 
         function(erro){
@@ -170,9 +169,9 @@ function TotalReceitaDespesa(dataInicial, dataFinal, categoria){
 }
 
 function BuscarReceitaDespesa(dataInicial, dataFinal, categoria, tipo) {
-    var query = 'SELECT * FROM receita_despesa ';
     BancoDados.transaction(
         function (e){
+            var query = 'SELECT rd.Id as Id, rd.tipo, rd.valor, rd.data, rd.quantidade_parcelas, rd.observacao, c.descricao FROM receita_despesa rd inner join categoria c on c.id = rd.categoria ';
             if(dataInicial != '' && dataFinal != ''){
                 query += 'WHERE data >="' + dataInicial + '" and data <= "' + dataFinal + '"';
             }
@@ -182,7 +181,14 @@ function BuscarReceitaDespesa(dataInicial, dataFinal, categoria, tipo) {
             if(tipo != 0){
                 query += ' and tipo = ' + tipo;
             }
-            e.executeSql(query, [], ResultadoReceitaDespesa, 
+            e.executeSql(query, [], 
+                function (e, results){
+                    var len = results.rows.length, texto = "";
+                    for (var i=0; i<len; i++){
+                        texto += JSON.stringify(results.rows.item(i)) + "\n";
+                    }
+                    alert(texto, 'receita despesa');
+                }, 
                 function(erro){
                     alert("Erro ao buscar!", 'Erro');
                 }
@@ -211,10 +217,3 @@ function ResultadoTotalReceitaDespesa(e, results){
     alert(texto);
 }
 
-function ResultadoReceitaDespesa(e, results){
-    var len = results.rows.length, texto = "";
-    for (var i=0; i<len; i++){
-        texto += "Id = " + results.rows.item(i).id + " Categoria =  " + results.rows.item(i).categoria + " Data =  " + results.rows.item(i).data + " Valor =  " + results.rows.item(i).valor + "\n";
-    }
-    alert(texto, 'receita despesa');
-}
