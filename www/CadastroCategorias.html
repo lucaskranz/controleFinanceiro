@@ -38,7 +38,7 @@
            <label for="txtDescricao">Descrição</label>  
            <input id="txtDescricao" name="txtDescricao" type="text" />
          </div>
-         <input type="button" value="Cadastrar Categoria" onclick="CadastrarCategoria()">    
+         <input type="button" value="Cadastrar" onclick="CadastrarCategoria()">    
          
       </div>
    </div>
@@ -56,18 +56,16 @@
 
    <script type="text/javascript">
       function CadastrarCategoria(){
-         var id = 0; // pois esta salvando, quando editar passa o id
+        var id = 0; // pois esta salvando, quando editar passa o id
         
-         if($('#radio-despesa')[0].checked == true)
+        if($('#radio-despesa')[0].checked == true)
           var tipo = $('#radio-despesa').val(); // tipo categoria
         else 
           var tipo = $('#radio-receita').val(); // tipo categoria
-         var descricao = $('#txtDescricao').val(); // id da categoria
-         alert(id + "\n" + tipo + "\n" + descricao + "\n");
-
-         SalvarCategoria(id,descricao,tipo);
-
-         //SalvarCategoria(id, descricao, tipo);
+         
+        var descricao = $('#txtDescricao').val(); // id da categoria
+        alert(id + "\n" + tipo + "\n" + descricao + "\n");
+        SalvarCategoria(id,descricao,tipo);
       }
 
    </script>
