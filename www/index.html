@@ -66,33 +66,41 @@
     <script type="text/javascript" src="Framework7/js/framework7.min.js"></script>
     <script type="text/javascript">
     	$(document).ready(function(){
-    		alert("chamandoooo");
+    		//alert("chamandoooo");
     		BuscarSaldo();
 
     	});	
 
     	function BuscarSaldo(){
 
+
         	var resultado = function(totalReceita, totalDespesa) {
-          		document.getElementById("receita").innerHTML="Receita: " + totalReceita;
-          		document.getElementById("despesa").innerHTML="Despesa: " + totalDespesa;
-           		document.getElementById("saldo").innerHTML="Saldo: " + totalReceita - totalDespesa;
+        		//alert("resultado " + resultado);
+          		document.getElementById("#receita").innerHTML="Receita: "  + totalReceita;
+          		document.getElementById("#despesa").innerHTML="Despesa: "  + totalDespesa;
+           		document.getElementById("#saldo").innerHTML="Saldo: " +  (totalReceita - totalDespesa) ;
           
         	};
 
-        	TotalReceitaDespesa(resultado, DataInicio(), DataFim(), "");
+        	TotalReceitaDespesa(resultado, DataInicio(), DataFim());
+        	
       	}
 
 
    		function DataInicio(){
+   			//alert("inicio");
     		var data = new Date();
     		var mes = data.getMonth()+1;
     		if (mes.toString().length == 1)
         		mes = "0"+mes;
-    		var ano = data.getFullYear();  
+    		var ano = data.getFullYear();
+
+    		var result = "01"+"/"+mes+"/"+ano;
+    		//alert(result);
     		return ("01"+"/"+mes+"/"+ano);
 		}
 		function DataFim(){
+			//alert("fim");
     		var data = new Date();
     		var mes = data.getMonth()+1;
     		if (mes.toString().length == 1)
