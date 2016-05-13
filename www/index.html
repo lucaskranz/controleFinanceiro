@@ -36,16 +36,19 @@
 		<div data-role="content" >
 			<h3 class="ui-bar ui-bar-a ui-corner-all">Resumo</h3>
 		    <div class="ui-body">
-				<p>Receitas: </p>
-				<p>Despesas: </p>
+				<p id="receita"></p>
+				<p id="despesa"></p>
+				<p id="saldo"></p>
 		    </div>
 			<h3 class="ui-bar ui-bar-a ui-corner-all">Resumo</h3>
 		    <div class="ui-body">
 				<a href="CadastroReceitas.html" data-transition="slide">Cadastro Receita/Despesa</a>
 			</div>
-			    <div class="ui-body">
+			<div class="ui-body">
 				<a href="CadastroCategorias.html" data-transition="slide">Cadastro Categoria</a>
 			</div>
+			
+
 
 			
 		</div>
@@ -61,6 +64,53 @@
     <script type="text/javascript" src="js/my-app-banco.js"></script>
 
     <script type="text/javascript" src="Framework7/js/framework7.min.js"></script>
+    <script type="text/javascript">
+    	$(document).ready(function(){
+    		//alert("chamandoooo");
+    		BuscarSaldo();
+
+    	});	
+
+    	function BuscarSaldo(){
+
+
+        	var resultado = function(totalReceita, totalDespesa) {
+        		//alert("resultado " + resultado);
+          		document.getElementById("#receita").innerHTML="Receita: "  + totalReceita;
+          		document.getElementById("#despesa").innerHTML="Despesa: "  + totalDespesa;
+           		document.getElementById("#saldo").innerHTML="Saldo: " +  (totalReceita - totalDespesa) ;
+          
+        	};
+
+        	TotalReceitaDespesa(resultado, DataInicio(), DataFim());
+        	
+      	}
+
+
+   		function DataInicio(){
+   			//alert("inicio");
+    		var data = new Date();
+    		var mes = data.getMonth()+1;
+    		if (mes.toString().length == 1)
+        		mes = "0"+mes;
+    		var ano = data.getFullYear();
+
+    		var result = "01"+"/"+mes+"/"+ano;
+    		//alert(result);
+    		return ("01"+"/"+mes+"/"+ano);
+		}
+		function DataFim(){
+			//alert("fim");
+    		var data = new Date();
+    		var mes = data.getMonth()+1;
+    		if (mes.toString().length == 1)
+        		mes = "0"+mes;
+    		var ano = data.getFullYear();  
+    		return ("31"+"/"+mes+"/"+ano);
+		}
+
+
+    </script>
 
 </body>
 </html>
