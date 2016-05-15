@@ -19,28 +19,7 @@
 </head>
 <body>
    <div data-role="page" data-theme="b">
-      <div data-role="header">
-         <a href="index.html" data-icon="back" data-rel="back" data-iconpos="notext"></a>
-         <h5>Cadastro de Categoria</h5>
-      </div>
-      <div data-role="content" >
-          <div data-role="fieldcontain">
-            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-               <legend>Tipo</legend>
-               <input type="radio" name="radio-categoria" id="radio-despesa" value="1" checked="checked">
-               <label for="radio-despesa">Despesa</label>
-               <input type="radio" name="radio-categoria" id="radio-receita" value="2">
-               <label for="radio-receita">Receita</label>
-            </fieldset>
-         </div>
-
-         <div data-role="">
-           <label for="txtDescricao">Descrição</label>  
-           <input id="txtDescricao" name="txtDescricao" type="text" />
-         </div>
-         <input type="button" value="Cadastrar Categoria" onclick="CadastrarCategoria()">    
-         
-      </div>
+      
    </div>
 
    <script type="text/javascript" src="cordova.js"></script>
@@ -55,20 +34,7 @@
    <script type="text/javascript" src="Framework7/js/framework7.min.js"></script>
 
    <script type="text/javascript">
-      function CadastrarCategoria(){
-         var id = 0; // pois esta salvando, quando editar passa o id
-        
-         if($('#radio-despesa')[0].checked == true)
-          var tipo = $('#radio-despesa').val(); // tipo categoria
-        else 
-          var tipo = $('#radio-receita').val(); // tipo categoria
-         var descricao = $('#txtDescricao').val(); // id da categoria
-         alert(id + "\n" + tipo + "\n" + descricao + "\n");
-
-         SalvarCategoria(id,descricao,tipo);
-
-         //SalvarCategoria(id, descricao, tipo);
-      }
+     
 
    </script>
   

@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="Framework7/css/framework7.material.material.css">
+	<link rel="stylesheet" href="Framework7/css/framework7.material.material.css">
 
 	<link rel="stylesheet" type="text/css" href="jquery/jquery.mobile-1.4.5.min.css"/>
 	<link rel="stylesheet" type="text/css" href="jquery/jquery-ui.min.css"/>
@@ -19,88 +19,263 @@
 
 </head>
 <body>
-	<div data-role="page" data-theme="a">
-		<div data-role="panel" data-display="overlay" id="menuPanel">
-		    <div data-role="header">
-				<h5>Menu</h5>
+	<form>
+		<div data-role="page" id="index" data-theme="a">
+			<div data-role="panel" data-display="overlay" id="menuPanel">
+				<div data-role="header">
+					<h5>Menu</h5>
+				</div>
+				<div data-role="content" >
+				</div>
+			</div>
+			<div data-role="header">
+				<a href="#menuPanel" data-icon="home" data-iconpos="notext"></a>
+				<h6>Economy +</h6>
+				<a href="#menuPanel" data-icon="grid" data-iconpos="notext"></a>
 			</div>
 			<div data-role="content" >
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Resumo</h3>
+				    <div class="ui-body">
+					<p id="receita"></p>
+					<p id="despesa"></p>
+					<p id="saldo"></p>
+				    </div>
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Resumo</h3>
+				    <div class="ui-body">
+					<a href="#CadastroReceitaDespesa" onclick="CarregarCategoria(1)" data-transition="slide">Cadastro Receita/Despesa</a>
+				</div>
+				    <div class="ui-body">
+					<a href="#CadastroCategoria" data-transition="slide">Cadastro Categoria</a>
+				</div>
+			</div>
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+				    <ul>
+				        <li><a href="#index" class="ui-btn-active">One</a></li>
+				        <li><a href="#CadastroReceitaDespesa">Two</a></li>
+				        <li><a href="#CadastroCategoria">Three</a></li>
+				    </ul>
+				</div>
 			</div>
 		</div>
+		<div data-role="page" id="CadastroReceitaDespesa" data-theme="a">
+			<div data-role="header">
+		         <a href="#index" data-icon="back" data-rel="back" data-iconpos="notext"></a>
+		         <h5>Cadastro Receita/Despesa</h5>
+		      </div>
+		    <div data-role="content" >
+		         <div data-role="fieldcontain">
+		            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+		               <legend>Tipo</legend>
+		               <input type="radio" name="radio-categoria" id="radio-despesa" checked="checked" onclick="CarregarCategoria(1)">
+		               <label for="radio-despesa">Despesa</label>
+		               <input type="radio" name="radio-categoria" id="radio-receita" onclick="CarregarCategoria(2)">
+		               <label for="radio-receita">Receita</label>
+		            </fieldset>
+		         </div>
 
-		<div data-role="header">
-			<a href="#menuPanel" data-icon="home" data-iconpos="notext"></a>
-			<h6>Economy +</h6>
-			<a href="#menuPanel" data-icon="grid" data-iconpos="notext"></a>
-		</div>
-		<div data-role="content" >
-			<h3 class="ui-bar ui-bar-a ui-corner-all">Resumo</h3>
-		    <div class="ui-body">
-				<p id="receita"></p>
-				<p id="despesa"></p>
-				<p id="saldo"></p>
-		    </div>
-			<h3 class="ui-bar ui-bar-a ui-corner-all">Resumo</h3>
-		    <div class="ui-body">
-				<a href="CadastroReceitas.html" data-transition="slide">Cadastro Receita/Despesa</a>
-			</div>
-			    <div class="ui-body">
-				<a href="CadastroCategorias.html" data-transition="slide">Cadastro Categoria</a>
-			</div>
+		         <div data-role="fieldcontain">
+		            <label for="select-categoria" class="select">Categoria</label>
+		            <select name="select-categoria" id="select-categoria" data-native-menu="false" data-mini="true">
+		            </select>
+		         </div>
 
-			
-		</div>
-	</div>
+		         <div data-role="">
+		           <label for="txtData">Data</label>  
+		           <input id="txtData" name="txtData" type="text" readonly />
+		         </div>
 
+		         <div data-role="">
+		           <label for="txtValor">Valor (R$)</label>  
+		           <input type="number" name="txtValor" pattern="[0-9]*" id="txtValor" value="0,00">
+		         </div>
+
+		         <div data-role="">
+		           <label for="txtQtdParcela">Qtde. Parcelas</label>  
+		           <input type="number" name="txtQtdParcela" pattern="[0-9]*" id="txtQtdParcela" value="1">
+		         </div>
+
+		         <div data-role="fieldcontain">
+		           <label for="txtObservacao">Observação</label>  
+		           <textarea cols="40" rows="8" name="txtObservacao" id="txtObservacao" ></textarea>
+		         </div>                    
+		                     
+		         <input type="button" value="Cadastrar" onclick="CadastrarReceitaDespesa()">
+		      </div>
+		</div>	
+		<div data-role="page" id="CadastroCategoria" data-theme="a">
+			<div data-role="header" data-position="fixed">
+	        	<a href="#index" data-icon="back" data-rel="back" data-iconpos="notext"></a>
+	        	<h5>Cadastro de Categoria</h5>
+	      	</div>
+	      	<div data-role="content" >
+	          <div data-role="fieldcontain">
+	            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+	               <legend>Tipo</legend>
+	               <input type="radio" name="radio-cadastro-categoria" id="radio-despesa-categoria" checked="checked">
+	               <label for="radio-despesa-categoria">Despesa</label>
+	               <input type="radio" name="radio-cadastro-categoria" id="radio-receita-categoria" >
+	               <label for="radio-receita-categoria">Receita</label>
+	            </fieldset>
+	         </div>
+
+	         <div data-role="fieldcontain">
+	           <label for="txtDescricao">Descrição</label>  
+	           <input id="txtDescricao" name="txtDescricao" type="text" />
+	         </div>
+	         <input type="button" value="Cadastrar Categoria" onclick="CadastrarCategoria()">    
+	      	</div>
+	    </div>
+	</form>
 	<script type="text/javascript" src="cordova.js"></script>
 
-    <script type="text/javascript" charset="utf-8" src="jquery/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="jquery/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="jquery/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="jquery/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="jquery/jquery.mobile.toast.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="jquery/jquery-ui.min.js"></script>
 	
-    <script type="text/javascript" src="js/my-app.js"></script>
-    <script type="text/javascript" src="js/my-app-banco.js"></script>
+	<script type="text/javascript" src="js/my-app.js"></script>
+	<script type="text/javascript" src="js/my-app-banco.js"></script>
 
-    <script type="text/javascript" src="Framework7/js/framework7.min.js"></script>
-    <script type="text/javascript">
-    	$(document).ready(function(){
-    		alert("chamandoooo");
-    		BuscarSaldo();
+	<script id="scriptProncipal" type="text/javascript" charset="utf-8"> 
 
-    	});	
+		document.addEventListener('deviceready', function(){
+			BuscarSaldo();
+		}, false);
 
-    	function BuscarSaldo(){
+	</script>	
 
-        	var resultado = function(totalReceita, totalDespesa) {
-          		document.getElementById("receita").innerHTML="Receita: " + totalReceita;
-          		document.getElementById("despesa").innerHTML="Despesa: " + totalDespesa;
-           		document.getElementById("saldo").innerHTML="Saldo: " + totalReceita - totalDespesa;
-          
-        	};
+	<script id="scriptIndex" type="text/javascript" charset="utf-8">
 
-        	TotalReceitaDespesa(resultado, DataInicio(), DataFim(), "");
-      	}
+		function BuscarSaldo(){
+
+			var resultado = function(totalReceita, totalDespesa) {
+				document.getElementById("receita").innerHTML="Receita: " + totalReceita;
+				document.getElementById("despesa").innerHTML="Despesa: " + totalDespesa;
+				document.getElementById("saldo").innerHTML="Saldo: " + (totalReceita - totalDespesa);
+
+			};
+
+			TotalReceitaDespesa(resultado, DataInicio(), DataFim(), "");
+		}
 
 
-   		function DataInicio(){
-    		var data = new Date();
-    		var mes = data.getMonth()+1;
-    		if (mes.toString().length == 1)
-        		mes = "0"+mes;
-    		var ano = data.getFullYear();  
-    		return ("01"+"/"+mes+"/"+ano);
+		function DataInicio(){
+			var data = new Date();
+			var mes = data.getMonth()+1;
+			if (mes.toString().length == 1)
+				mes = "0"+mes;
+			var ano = data.getFullYear();  
+			return ("01"+"/"+mes+"/"+ano);
 		}
 		function DataFim(){
-    		var data = new Date();
-    		var mes = data.getMonth()+1;
-    		if (mes.toString().length == 1)
-        		mes = "0"+mes;
-    		var ano = data.getFullYear();  
-    		return ("31"+"/"+mes+"/"+ano);
+			var data = new Date();
+			var mes = data.getMonth()+1;
+			if (mes.toString().length == 1)
+				mes = "0"+mes;
+			var ano = data.getFullYear();  
+			return ("31"+"/"+mes+"/"+ano);
 		}
 
+	</script>
 
-    </script>
+	<script id="scriptCadastroReceitaDespesa" type="text/javascript" charset="utf-8"> 
+
+		$( "#txtData" ).datepicker({
+			dateFormat: "dd/mm/yy"
+		});
+
+		function CarregarCategoria(tipo){
+			var resultado = function(result) {
+				var sltTipoPagamentoDespesa = document.getElementById("select-categoria");
+				$('#select-categoria').empty();
+				for (var i = 0; i < result.length; i++){
+					sltTipoPagamentoDespesa.options[i] = new Option(result[i].Descricao, result[i].Id);
+				}
+				$("#select-categoria").selectmenu("refresh", true);
+			};
+
+			BuscarCategoria(resultado, tipo);
+		}
+
+		function CadastrarReceitaDespesa(){
+
+		         var id = 0; // pois esta salvando, quando editar passa o id
+		         var tipo; // receita = 2 ou despesa = 1
+		         if($('#radio-despesa')[0].checked == true){
+		         	tipo = 1; 
+		         }else{ 
+		         	tipo = 2; 
+		         }
+		         var categoria = $('#select-categoria').val(); // id da categoria
+		         var valor = $('#txtValor').val();
+		         var data = $('#txtData').val();
+		         var qtdParcelas = $('#txtQtdParcela').val();
+		         var observacao = $('#txtObservacao').val();
+
+		         if(tipo <= 0){
+		         	AlertToast("Selecione um tipo!");
+		         	return;
+		         }
+
+		         if(categoria <= 0){
+		         	AlertToast("Selecione uma categoria!");
+		         	return;
+		         }
+
+		         if(data.trim() == ""){
+		         	AlertToast("Digite uma data!");
+		         	return;
+		         }
+
+		         if(valor.trim() == ""){
+		         	AlertToast("Digite um valor!");
+		         	return;
+		         }
+
+		         if(qtdParcelas.trim() == ''){
+		         	qtdParcelas = 0;
+		         }
+
+		         SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao);
+		         LimparCadastroReceitaDespesa();
+		     }
+
+		     function LimparCadastroReceitaDespesa(){
+		     	$('#txtValor').val('');
+		     	$('#txtData').val('');
+		     	$('#txtQtdParcela').val('1');
+		     	$('#txtObservacao').val('');
+		     }
+
+	</script>    
+
+	<script id="scriptCadastroCategoria" type="text/javascript" charset="utf-8"> 
+
+		function CadastrarCategoria(){
+	         var id = 0; // pois esta salvando, quando editar passa o id
+	        var tipo;
+	         if($('#radio-despesa-categoria')[0].checked == true){
+	          	tipo = 1; 
+	        }else{ 
+	          	tipo = 2; 
+	        }
+	         var descricao = $('#txtDescricao').val();
+
+	          if(descricao.trim() == ""){
+		         	AlertToast("Informe a descrição!");
+		         	return;
+		         }
+
+	         SalvarCategoria(id,descricao,tipo);
+	         LimparCadastroCategoria();
+	    }
+
+	    function LimparCadastroCategoria(){
+		    $('#txtDescricao').val('');
+		}
+
+	</script>  
 
 </body>
 </html>

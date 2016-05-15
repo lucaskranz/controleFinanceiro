@@ -15,7 +15,7 @@ function onDeviceReady() {
             e.executeSql('CREATE TABLE IF NOT EXISTS receita_despesa (id INTEGER PRIMARY KEY, tipo INTEGER, categoria INTEGER, valor NUMERIC, data TEXT, quantidade_parcelas INTEGER, observacao TEXT, FOREIGN KEY(categoria) REFERENCES categoria(id));');
         }, 
         function(erro){
-            alert('Erro ao iniciar o banco de dados!', 'Erro');
+            AlertToast('Erro ao iniciar o banco de dados!', 'Erro');
         }, 
         function(){
             // sucesso, criou as tabelas se não existiam
@@ -39,12 +39,12 @@ function VerificaCountCategoria(){
                     }
                 }, 
                 function(erro){
-                    myApp.alert("Erro ao inserir as categorias padrões!", 'Erro');
+                    AlertToast("Erro ao inserir as categorias padrões!", 'Erro');
                 }
             );
         },  
         function(erro){
-            myApp.alert("Erro ao inserir as categorias padrões!", 'Erro');
+            AlertToast("Erro ao inserir as categorias padrões!", 'Erro');
         }
     );
 }
@@ -60,7 +60,7 @@ function InsereCategoriasPadroes(){
             e.executeSql('INSERT INTO categoria (descricao, tipo) VALUES ("Saúde", 1)');
         }, 
         function(erro){
-            alert('Erro ao inserir as categorias padrões!', 'Erro');
+            AlertToast('Erro ao inserir as categorias padrões!', 'Erro');
         }
     );
 }
@@ -82,11 +82,11 @@ function SalvarCategoria(id, descricao, tipo){
             }
         }, 
         function(erro){
-            alert('Erro ao salvar!', 'Erro');
-            //alert(erro.code + ' / ' + erro.message);
+            AlertToast('Erro ao salvar!', 'Erro');
+            //AlertToast(erro.code + ' / ' + erro.message);
         }, 
         function(){
-            alert('Salvo com sucesso!', 'Sucesso');
+            AlertToast('Salvo com sucesso!', 'Sucesso');
         }
     );
 }
@@ -103,11 +103,11 @@ function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, obs
             e.executeSql(comando);
         }, 
         function(erro){
-            alert('Erro ao salvar!', 'Erro');
-            //alert(erro.code + ' / ' + erro.message);
+            AlertToast('Erro ao salvar!', 'Erro');
+            //AlertToast(erro.code + ' / ' + erro.message);
         }, 
         function(){
-            alert('Salvo com sucesso!', 'Sucesso');
+            AlertToast('Salvo com sucesso!', 'Sucesso');
         }
     );
 }
@@ -121,9 +121,9 @@ function BuscarCategoria(callback, tipo) {
         function (e){
             var sql = "";
             if (tipo > 0){
-                sql = 'SELECT * FROM categoria WHERE tipo = ' + tipo
+                sql = 'SELECT * FROM categoria WHERE tipo = ' + tipo;
             }else{
-                sql = 'SELECT * FROM categoria'
+                sql = 'SELECT * FROM categoria'; 
             }
             e.executeSql(sql, [], 
                 function (e, results){
@@ -136,12 +136,13 @@ function BuscarCategoria(callback, tipo) {
                     callback(resultado);
                 }, 
                 function(erro){
-                    alert("Erro ao buscar as categoria!", 'Erro');
+                    AlertToast("Erro ao buscar as categorias!", 'Erro');
                 }
             );
         },  
         function(erro){
-            alert("Erro ao buscar as categoria!", 'Erro');
+            AlertToast("Erro ao buscar as categorias!", 'Erro');
+            //alert(erro.code + ' / ' + erro.message);
         }
     );
 }
@@ -176,19 +177,19 @@ function TotalReceitaDespesa(callback, dataInicial, dataFinal, categoria){
                     callback(totalReceita, totalDespesa);
                 },
                 function(erro){
-                    alert("Erro ao buscar os totais!", 'Erro');
+                    AlertToast("Erro ao buscar os totais!", 'Erro');
                 }
             );            
         },
         function(erro){
-            alert("Erro ao buscar os totais!", 'Erro');
+            AlertToast("Erro ao buscar os totais!", 'Erro');
         }
 
     );                  
       
 }
 
-function BuscarReceitaDespesa(dataInicial, dataFinal, categoria, tipo) {
+function BuscarReceitaDespesa(callback, dataInicial, dataFinal, categoria, tipo) {
     BancoDados.transaction(
         function (e){
             var query = 'SELECT rd.Id as Id, rd.tipo, rd.valor, rd.data, rd.quantidade_parcelas, rd.observacao, c.descricao FROM receita_despesa rd inner join categoria c on c.id = rd.categoria ';
@@ -204,18 +205,21 @@ function BuscarReceitaDespesa(dataInicial, dataFinal, categoria, tipo) {
             e.executeSql(query, [], 
                 function (e, results){
                     var len = results.rows.length, texto = "";
+
+                    var resultado = new Array();
                     for (var i=0; i<len; i++){
-                        texto += JSON.stringify(results.rows.item(i)) + "\n";
+                        var linha = {Id: results.rows.item(i).Id, Tipo: results.rows.item(i).tipo, Valor: results.rows.item(i).valor, Data: results.rows.item(i).data, QuantidadeParcelas: results.rows.item(i).quantidade_parcelas, Observacao: results.rows.item(i).observacao, Categoria: results.rows.item(i).descricao};
+                        resultado.push(linha);
                     }
-                    alert(texto, 'receita despesa');
+                    callback(resultado);
                 }, 
                 function(erro){
-                    alert("Erro ao buscar!", 'Erro');
+                    AlertToast("Erro ao buscar!", 'Erro');
                 }
             );
         },  
         function(erro){
-            alert("Erro ao buscar!", 'Erro');
+            AlertToast("Erro ao buscar!", 'Erro');
         }
     );
 }
