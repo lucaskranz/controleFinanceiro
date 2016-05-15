@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <title>Cadastro de Receitas/Despesas</title>
+   <title>Cadastro de Receitas</title>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -17,53 +17,45 @@
 
    <link rel="stylesheet" href="css/my-app.css">
 </head>
-<body >
+<body>
    <div data-role="page" data-theme="b">
       <div data-role="header">
          <a href="index.html" data-icon="back" data-rel="back" data-iconpos="notext"></a>
          <h5>Economy +</h5>
       </div>
-      <div data-role="content" >
-
-          <div data-role="fieldcontain">
+      <input type="button" value="Filtro" onclick="$('#divFiltro:hidden').show()">
+      <div data-role="content" id="divFiltro">
+        <div data-role="fieldcontain">
             <label for="select-tipo" class="select">Tipo</label>
             <select name="select-tipo" id="select-tipo" data-native-menu="false" data-mini="true">
-              <option value="0">Tipo</option>
-              <option value="1">Despesa</option>
-              <option value="2">Receita</option>
+                <option value="0">Tipo</option>
+                <option value="1">Despesa</option>
+                <option value="2">Receita</option>
             </select>
          </div>
-
          <div data-role="fieldcontain">
             <label for="select-categoria" class="select">Categoria</label>
             <select name="select-categoria" id="select-categoria" data-native-menu="false" data-mini="true">
             </select>
          </div>
-
          <div data-role="">
-           <label for="txtData">Data</label>  
-           <input id="txtData" name="txtData" type="text" readonly />
+           <label for="txtDataInicio">Data Inicio</label>  
+           <input id="txtDataInicio" name="txtData" type="text" />
+           <label for="txtDataFim">Data Fim</label>  
+           <input id="txtDataFim" name="txtData" type="text" />
          </div>
-
-         <div data-role="">
-           <label for="txtValor">Valor (R$)</label>  
-           <input type="number" name="txtValor" pattern="[0-9]*" id="txtValor" value="0,00">
-         </div>
-
-         <div data-role="">
-           <label for="txtQtdParcela">Qtde. Parcelas</label>  
-           <input type="number" name="txtQtdParcela" pattern="[0-9]*" id="txtQtdParcela" value="1">
-         </div>
-
-         <div data-role="fieldcontain">
-           <label for="txtObservacao">Observação</label>  
-           <textarea cols="40" rows="8" name="txtObservacao" id="txtObservacao" ></textarea>
-         </div>                    
-                     
-         <input type="button" value="Cadastrar" onclick="CadastrarReceitaDespesa()">
-
+         <input type="button" value="Filtrar" onclick="$('#divFiltro:visible').hide()">
       </div>
-   </div>
+      <ul data-role="listview" data-inset="true">
+        <li>
+          <a href="index.html">
+            <h2>Stephen Weber</h2>
+            <p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
+            <p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
+            <p class="ui-li-aside"><strong>6:24</strong>PM</p>
+          </a>
+        </li>
+    </div>
 
    <script type="text/javascript" src="cordova.js"></script>
 
@@ -78,7 +70,11 @@
 
    <script type="text/javascript">
 
-      $( "#txtData" ).datepicker({
+
+      $( "#txtDataInicio" ).datepicker({
+         dateFormat: "dd/mm/yy"
+      });
+      $( "#txtDataFim" ).datepicker({
          dateFormat: "dd/mm/yy"
       });
 
@@ -97,38 +93,6 @@
         };
 
         BuscarCategoria(resultado, tipo);
-      }
-
-      function CadastrarReceitaDespesa(){
-         var id = 0; // pois esta salvando, quando editar passa o id
-         var tipo = $('#select-tipo').val(); // receita ou despesa
-         var categoria = $('#select-categoria').val(); // id da categoria
-         var valor = $('#txtValor').val();
-         var data = $('#txtData').val();
-         var qtdParcelas = $('#txtQtdParcela').val();
-         var observacao = $('#txtObservacao').val();
-
-         if(tipo <= 0){
-            alert("Selecione um tipo!");
-            return;
-         }
-
-         if(categoria <= 0){
-            alert("Selecione uma categoria!");
-            return;
-         }
-
-          if(data.trim() == ""){
-            alert("Digite uma data!");
-            return;
-         }
-
-        if(valor.trim() == ""){
-            alert("Digite um valor!");
-            return;
-         }
-
-         SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao);
       }
 
    </script>

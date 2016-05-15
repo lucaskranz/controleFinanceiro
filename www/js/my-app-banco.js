@@ -75,6 +75,7 @@ function InsereCategoriasPadroes(){
 function SalvarCategoria(id, descricao, tipo){
     BancoDados.transaction(
         function (e){
+    
             if(id > 0) {
                 e.executeSql('UPDATE categoria SET descricao = "' + descricao + '", tipo = ' + tipo + ' WHERE id = ' + id);
             } else {
@@ -139,10 +140,13 @@ function BuscarCategoria(callback, tipo) {
                     AlertToast("Erro ao buscar as categorias!", 'Erro');
                 }
             );
+<<<<<<< HEAD
         },  
         function(erro){
             AlertToast("Erro ao buscar as categorias!", 'Erro');
             //alert(erro.code + ' / ' + erro.message);
+=======
+>>>>>>> ea963f33c5c60581b89d86850512fbd86a929977
         }
     );
 }
@@ -226,3 +230,18 @@ function BuscarReceitaDespesa(callback, dataInicial, dataFinal, categoria, tipo)
 
 
 
+function ResultadoReceitaDespesa(e, results){
+    var len = results.rows.length, texto = "";
+    for (var i=0; i<len; i++){
+        texto += "Id = " + results.rows.item(i).id + " Categoria =  " + results.rows.item(i).categoria + " Data =  " + results.rows.item(i).data + " Valor =  " + results.rows.item(i).valor + "\n";
+    }
+    alert(texto, 'receita despesa');
+}
+
+function ResultadoCategoria(e, results){
+    var len = results.rows.length, texto = "";
+    for (var i=0; i<len; i++){
+       texto += "Id = " + results.rows.item(i).id + " Descrição =  " + results.rows.item(i).descricao + " Tipo =  " + results.rows.item(i).tipo + "\n";
+    }
+    alert(texto, 'Categoria');
+}

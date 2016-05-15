@@ -73,13 +73,11 @@
 		               <label for="radio-receita">Receita</label>
 		            </fieldset>
 		         </div>
-
 		         <div data-role="fieldcontain">
 		            <label for="select-categoria" class="select">Categoria</label>
 		            <select name="select-categoria" id="select-categoria" data-native-menu="false" data-mini="true">
 		            </select>
 		         </div>
-
 		         <div data-role="">
 		           <label for="txtData">Data</label>  
 		           <input id="txtData" name="txtData" type="text" readonly />
@@ -137,8 +135,7 @@
 	<script type="text/javascript" src="js/my-app.js"></script>
 	<script type="text/javascript" src="js/my-app-banco.js"></script>
 
-	<script id="scriptProncipal" type="text/javascript" charset="utf-8"> 
-
+	<script id="scriptPrincipal" type="text/javascript" charset="utf-8"> 
 		document.addEventListener('deviceready', function(){
 			BuscarSaldo();
 		}, false);
@@ -148,14 +145,11 @@
 	<script id="scriptIndex" type="text/javascript" charset="utf-8">
 
 		function BuscarSaldo(){
-
 			var resultado = function(totalReceita, totalDespesa) {
 				document.getElementById("receita").innerHTML="Receita: " + totalReceita;
 				document.getElementById("despesa").innerHTML="Despesa: " + totalDespesa;
 				document.getElementById("saldo").innerHTML="Saldo: " + (totalReceita - totalDespesa);
-
 			};
-
 			TotalReceitaDespesa(resultado, DataInicio(), DataFim(), "");
 		}
 
