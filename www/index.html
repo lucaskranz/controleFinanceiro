@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="Framework7/css/framework7.material.material.css">
 
 	<link rel="stylesheet" type="text/css" href="jquery/jquery.mobile-1.4.5.min.css"/>
 	<link rel="stylesheet" type="text/css" href="jquery/jquery-ui.min.css"/>
@@ -47,6 +46,9 @@
 			<div class="ui-body">
 				<a href="CadastroCategorias.html" data-transition="slide">Cadastro Categoria</a>
 			</div>
+			<div class="ui-body">
+				<a href="Extrato.html" data-transition="slide">Extrato</a>
+			</div>
 			
 
 
@@ -63,7 +65,7 @@
     <script type="text/javascript" src="js/my-app.js"></script>
     <script type="text/javascript" src="js/my-app-banco.js"></script>
 
-    <script type="text/javascript" src="Framework7/js/framework7.min.js"></script>
+    
     <script type="text/javascript">
     	$(document).ready(function(){
     		//alert("chamandoooo");
@@ -82,7 +84,7 @@
           
         	};
 
-        	TotalReceitaDespesa(resultado, DataInicio(), DataFim());
+        	TotalReceitaDespesa(callback, resultado, DataInicio(), DataFim());
         	
       	}
 
