@@ -75,7 +75,6 @@ function InsereCategoriasPadroes(){
 function SalvarCategoria(id, descricao, tipo){
     BancoDados.transaction(
         function (e){
-    
             if(id > 0) {
                 e.executeSql('UPDATE categoria SET descricao = "' + descricao + '", tipo = ' + tipo + ' WHERE id = ' + id);
             } else {
