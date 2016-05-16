@@ -6,8 +6,6 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
 
    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="Framework7/css/framework7.material.material.css">
-
    <link rel="stylesheet" type="text/css" href="jquery/jquery.mobile-1.4.5.min.css"/>
    <link rel="stylesheet" type="text/css" href="jquery/jquery-ui.min.css"/>
 
@@ -74,7 +72,7 @@
    <script type="text/javascript" src="js/my-app.js"></script>
    <script type="text/javascript" src="js/my-app-banco.js"></script>
 
-   <script type="text/javascript" src="Framework7/js/framework7.min.js"></script>
+   
 
    <script type="text/javascript">
 
@@ -100,34 +98,43 @@
       }
 
       function CadastrarReceitaDespesa(){
+        //alert("cadastro");
          var id = 0; // pois esta salvando, quando editar passa o id
          var tipo = $('#select-tipo').val(); // receita ou despesa
-         var categoria = $('#select-categoria').val(); // id da categoria
-         var valor = $('#txtValor').val();
-         var data = $('#txtData').val();
-         var qtdParcelas = $('#txtQtdParcela').val();
-         var observacao = $('#txtObservacao').val();
-
-         if(tipo <= 0){
+         
+          if(tipo <= 0){
             alert("Selecione um tipo!");
             return;
          }
 
-         if(categoria <= 0){
+         var categoria = $('#select-categoria').val(); // id da categoria
+
+          if(categoria <= 0){
             alert("Selecione uma categoria!");
             return;
          }
+
+         var valor = $('#txtValor').val();
+
+
+        if(valor.trim() == ""){
+            alert("Digite um valor!");
+            return;
+         }
+         
+         var data = $('#txtData').val();
 
           if(data.trim() == ""){
             alert("Digite uma data!");
             return;
          }
 
-        if(valor.trim() == ""){
-            alert("Digite um valor!");
-            return;
-         }
+         var qtdParcelas = $('#txtQtdParcela').val();
+         var observacao = $('#txtObservacao').val();
 
+           
+
+        
          SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao);
       }
 
