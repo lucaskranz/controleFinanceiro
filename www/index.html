@@ -137,7 +137,8 @@
 
 	<script id="scriptPrincipal" type="text/javascript" charset="utf-8"> 
 		document.addEventListener('deviceready', function(){
-			BuscarSaldo();
+			//BuscarSaldo();
+			BuscarReceitasDespesas();
 		}, false);
 
 	</script>	
@@ -152,7 +153,6 @@
 			};
 			TotalReceitaDespesa(resultado, DataInicio(), DataFim(), "");
 		}
-
 
 		function DataInicio(){
 			var data = new Date();
@@ -270,6 +270,17 @@
 		}
 
 	</script>  
+
+	<script id="scriptExtrato" type="text/javascript" charset="utf-8">
+
+		function BuscarReceitasDespesas(){
+			var resultado = function(result) {
+				alert(JSON.stringify(result));
+			};
+			BuscarReceitaDespesa(resultado, DataInicio(), DataFim(), 0, 0);
+		}
+
+	</script>
 
 </body>
 </html>

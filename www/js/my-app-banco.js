@@ -204,7 +204,7 @@ function BuscarReceitaDespesa(callback, dataInicial, dataFinal, categoria, tipo)
             }
             e.executeSql(query, [], 
                 function (e, results){
-                    var len = results.rows.length, texto = "";
+                    var len = results.rows.length;
 
                     var resultado = new Array();
                     for (var i=0; i<len; i++){
@@ -222,20 +222,4 @@ function BuscarReceitaDespesa(callback, dataInicial, dataFinal, categoria, tipo)
             AlertToast("Erro ao buscar!", 'Erro');
         }
     );
-}
-
-function ResultadoReceitaDespesa(e, results){
-    var len = results.rows.length, texto = "";
-    for (var i=0; i<len; i++){
-        texto += "Id = " + results.rows.item(i).id + " Categoria =  " + results.rows.item(i).categoria + " Data =  " + results.rows.item(i).data + " Valor =  " + results.rows.item(i).valor + "\n";
-    }
-    alert(texto, 'receita despesa');
-}
-
-function ResultadoCategoria(e, results){
-    var len = results.rows.length, texto = "";
-    for (var i=0; i<len; i++){
-       texto += "Id = " + results.rows.item(i).id + " Descrição =  " + results.rows.item(i).descricao + " Tipo =  " + results.rows.item(i).tipo + "\n";
-    }
-    alert(texto, 'Categoria');
 }
