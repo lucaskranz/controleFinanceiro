@@ -139,13 +139,10 @@ function BuscarCategoria(callback, tipo) {
                     AlertToast("Erro ao buscar as categorias!", 'Erro');
                 }
             );
-<<<<<<< HEAD
         },  
         function(erro){
             AlertToast("Erro ao buscar as categorias!", 'Erro');
             //alert(erro.code + ' / ' + erro.message);
-=======
->>>>>>> ea963f33c5c60581b89d86850512fbd86a929977
         }
     );
 }
@@ -226,8 +223,6 @@ function BuscarReceitaDespesa(callback, dataInicial, dataFinal, categoria, tipo)
         }
     );
 }
-
-
 
 function ResultadoReceitaDespesa(e, results){
     var len = results.rows.length, texto = "";
