@@ -42,11 +42,14 @@
 				    </div>
 				<h3 class="ui-bar ui-bar-a ui-corner-all">Resumo</h3>
 				    <div class="ui-body">
-					<a href="#CadastroReceitaDespesa" onclick="CarregarCategoria(1)" data-transition="slide">Cadastro Receita/Despesa</a>
-				</div>
+						<a href="#CadastroReceitaDespesa" onclick="CarregarCategoria(1)" data-transition="slide">Cadastro Receita/Despesa</a>
+					</div>
 				    <div class="ui-body">
-					<a href="#CadastroCategoria" data-transition="slide">Cadastro Categoria</a>
-				</div>
+						<a href="#CadastroCategoria" data-transition="slide">Cadastro Categoria</a>
+					</div>
+					<div class="ui-body">
+						<a href="#Extrato" data-transation="slide">Extrato</a>
+					</div>
 			</div>
 			<div data-role="footer" data-position="fixed">
 				<div data-role="navbar">
@@ -124,6 +127,50 @@
 	         <input type="button" value="Cadastrar Categoria" onclick="CadastrarCategoria()">    
 	      	</div>
 	    </div>
+
+	    <div data-role="page" id="Extrato" data-theme="a">
+			<div data-role="header" data-position="fixed">
+	        	<a href="#index" data-icon="back" data-rel="back" data-iconpos="notext"></a>
+	        	<h5>Extrato</h5>
+	      	</div>
+	      	<div data-role="content" >
+	        	<input type="button" value="Filtro" onclick="$('#divFiltro:hidden').show()">
+      			<div id="divFiltro">
+			        <div data-role="fieldcontain">
+			            <label for="select-tipo" class="select">Tipo</label>
+			            <select name="select-tipo" id="select-tipo" data-native-menu="false" data-mini="true">
+			                <option value="0">Tipo</option>
+			                <option value="1">Despesa</option>
+			                <option value="2">Receita</option>
+			            </select>
+			        </div>
+					<div data-role="fieldcontain">
+						<label for="select-categoria" class="select">Categoria</label>
+						<select name="select-categoria" id="select-categoria" data-native-menu="false" data-mini="true">
+						</select>
+					</div>
+					<div data-role="">
+						<label for="txtDataInicio">Data Inicio</label>  
+						<input id="txtDataInicio" name="txtData" type="text" />
+						<label for="txtDataFim">Data Fim</label>  
+						<input id="txtDataFim" name="txtData" type="text" />
+					</div>			
+        			<input type="button" value="Filtrar" onclick="$('#divFiltro:visible').hide()">
+      			</div>
+			    <ul data-role="listview" data-inset="true">
+			        <li>
+			        	<a href="index.html">
+			            <h2>Stephen Weber</h2>
+			            <p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
+			            <p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
+			            <p class="ui-li-aside"><strong>6:24</strong>PM</p>
+			        	</a>
+			        </li>
+			    </ul>  
+	      	</div>
+	    </div>
+
+
 	</form>
 	<script type="text/javascript" src="cordova.js"></script>
 
