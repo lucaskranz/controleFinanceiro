@@ -48,7 +48,7 @@
 						<a href="#CadastroCategoria" data-transition="slide">Cadastro Categoria</a>
 					</div>
 					<div class="ui-body">
-						<a href="#Extrato" data-transation="slide">Extrato</a>
+						<a href="#Extrato" onclick="LoadExtrato()" data-transation="slide">Extrato</a>
 					</div>
 			</div>
 			<div data-role="footer" data-position="fixed">
@@ -134,38 +134,37 @@
 	        	<h5>Extrato</h5>
 	      	</div>
 	      	<div data-role="content" >
-	        	<input type="button" value="Filtro" onclick="$('#divFiltro:hidden').show()">
+	        	<input id="btnAbreFechaFiltrosExtrato" type="button" value="Ocultar filtros" onclick="AbreFechaFiltrosExtrato()">
       			<div id="divFiltro">
 			        <div data-role="fieldcontain">
-			            <label for="select-tipo" class="select">Tipo</label>
-			            <select name="select-tipo" id="select-tipo" data-native-menu="false" data-mini="true">
-			                <option value="0">Tipo</option>
-			                <option value="1">Despesa</option>
-			                <option value="2">Receita</option>
-			            </select>
-			        </div>
+			            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+			               <legend>Tipo</legend>
+			               <input type="radio" name="radio-categoria-extrato" id="radio-despesa-extrato" checked="checked" onclick="CarregarCategoriaExtrato(1)">
+			               <label for="radio-despesa-extrato">Despesa</label>
+			               <input type="radio" name="radio-categoria-extrato" id="radio-receita-extrato" onclick="CarregarCategoriaExtrato(2)">
+			               <label for="radio-receita-extrato">Receita</label>
+			            </fieldset>
+			         </div>
 					<div data-role="fieldcontain">
-						<label for="select-categoria" class="select">Categoria</label>
-						<select name="select-categoria" id="select-categoria" data-native-menu="false" data-mini="true">
+						<label for="select-categoria-extrato" class="select">Categoria</label>
+						<select name="select-categoria-extrato" id="select-categoria-extrato" data-native-menu="false" data-mini="true">
 						</select>
 					</div>
 					<div data-role="">
-						<label for="txtDataInicio">Data Inicio</label>  
-						<input id="txtDataInicio" name="txtData" type="text" />
-						<label for="txtDataFim">Data Fim</label>  
-						<input id="txtDataFim" name="txtData" type="text" />
+						<label for="txtDataInicioExtrato">Data Inicio</label>  
+						<input id="txtDataInicioExtrato" readonly type="text" />
+						<label for="txtDataFimExtrato">Data Fim</label>  
+						<input id="txtDataFimExtrato" readonly type="text" />
 					</div>			
-        			<input type="button" value="Filtrar" onclick="$('#divFiltro:visible').hide()">
+        			<input type="button" value="Buscar" onclick="BuscarReceitasDespesas()">
       			</div>
-			    <ul data-role="listview" data-inset="true">
-			        <li>
-			        	<a href="index.html">
-			            <h2>Stephen Weber</h2>
-			            <p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
-			            <p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
-			            <p class="ui-li-aside"><strong>6:24</strong>PM</p>
-			        	</a>
-			        </li>
+      			<h3 class="ui-bar ui-bar-a ui-corner-all">Resumo</h3>
+				<div class="ui-body">
+					<p id="receita-extrato" style="color:green"></p>
+					<p id="despesa-extrato" style="color:red"></p>
+					<p id="saldo-extrato"></p>
+				</div>
+			    <ul id="ListaReceitasDespesas" data-role="listview" data-inset="true">
 			    </ul>  
 	      	</div>
 	    </div>
@@ -184,8 +183,7 @@
 
 	<script id="scriptPrincipal" type="text/javascript" charset="utf-8"> 
 		document.addEventListener('deviceready', function(){
-			//BuscarSaldo();
-			BuscarReceitasDespesas();
+			BuscarSaldo();
 		}, false);
 
 	</script>	
@@ -194,9 +192,9 @@
 
 		function BuscarSaldo(){
 			var resultado = function(totalReceita, totalDespesa) {
-				document.getElementById("receita").innerHTML="Receita: " + totalReceita;
-				document.getElementById("despesa").innerHTML="Despesa: " + totalDespesa;
-				document.getElementById("saldo").innerHTML="Saldo: " + (totalReceita - totalDespesa);
+				document.getElementById("receita").innerHTML="Receita: R$ " + totalReceita;
+				document.getElementById("despesa").innerHTML="Despesa: R$ " + totalDespesa;
+				document.getElementById("saldo").innerHTML="Saldo: R$ " + (totalReceita - totalDespesa);
 			};
 			TotalReceitaDespesa(resultado, DataInicio(), DataFim(), "");
 		}
@@ -279,6 +277,7 @@
 		         }
 
 		         SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao);
+		         BuscarSaldo();
 		         LimparCadastroReceitaDespesa();
 		     }
 
@@ -320,10 +319,79 @@
 
 	<script id="scriptExtrato" type="text/javascript" charset="utf-8">
 
-		function BuscarReceitasDespesas(){
+		$( "#txtDataInicioExtrato" ).datepicker({
+			dateFormat: "dd/mm/yy"
+		});
+		$( "#txtDataFimExtrato" ).datepicker({
+			dateFormat: "dd/mm/yy"
+		});
+
+		function AbreFechaFiltrosExtrato() {
+			if($('#divFiltro').is(":visible")){
+				$('#divFiltro').hide();
+				$("#btnAbreFechaFiltrosExtrato").val("Mostrar filtros").button("refresh");
+			}else{
+				$('#divFiltro').show();
+				$("#btnAbreFechaFiltrosExtrato").val("Ocultar filtros").button("refresh");
+			}
+		}
+
+		function LoadExtrato() {
+			CarregarCategoriaExtrato(1);
+		}
+
+		function CarregarCategoriaExtrato(tipo){
 			var resultado = function(result) {
-				alert(JSON.stringify(result));
+				var sltTipoPagamentoDespesa = document.getElementById("select-categoria-extrato");
+				$('#select-categoria-extrato').empty();
+				for (var i = 0; i < result.length; i++){
+					sltTipoPagamentoDespesa.options[i] = new Option(result[i].Descricao, result[i].Id);
+				}
+				$("#select-categoria-extrato").selectmenu("refresh", true);
 			};
+
+			BuscarCategoria(resultado, tipo);
+		}
+
+
+		function BuscarReceitasDespesas(){
+			$('#divFiltro').hide();
+			$("#btnAbreFechaFiltrosExtrato").val("Mostrar filtros").button("refresh");
+			var resultado = function(result) {
+				var html = "";
+				var Receita = 0;
+				var Despesa = 0;
+				for (var i = 0; i < result.length; i++){
+					var color = "";
+					if(result[i].Tipo == 1){
+						color = "Red";
+						Despesa += result[i].Valor;
+					}else{
+						color = "Green";
+						Receita += result[i].Valor;
+					}
+					html += "<li id='li_" + result[i].Id + "' style='color:" + color + "'>";
+					//html += "<a href=''>";
+					html += "<h2>" + result[i].Categoria + "</h2>";
+					html += "<p><strong>" + result[i].Data + "</strong></p>";
+					html += "<p>" + result[i].Observacao + "</p>";
+					html += "<p class='ui-li-aside'><strong>" + result[i].Valor + "</strong></p>";
+					//html += "</a>";
+					html += "</li>";
+				}
+				$('#ListaReceitasDespesas').html(html);
+
+				document.getElementById("receita-extrato").innerHTML = "Receita: R$ " + Receita;
+				document.getElementById("despesa-extrato").innerHTML = "Despesa: R$ " + Despesa;
+				document.getElementById("saldo-extrato").innerHTML = "Saldo: R$ " + (Receita - Despesa);
+
+				if((Receita - Despesa) < 0){
+					$("#saldo-extrato").css("color", "red");
+				}else{
+					$("#saldo-extrato").css("color", "green");
+				}
+
+			}; 
 			BuscarReceitaDespesa(resultado, DataInicio(), DataFim(), 0, 0);
 		}
 
