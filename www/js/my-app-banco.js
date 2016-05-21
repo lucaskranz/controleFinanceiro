@@ -239,3 +239,24 @@ function ResultadoCategoria(e, results){
     }
     alert(texto, 'Categoria');
 }
+
+//###################################################################
+//                   Funções que excluem
+//###################################################################
+
+function ExcluiReceitaDespesa(id){
+    BancoDados.transaction(
+        function (e){
+            if(id > 0) {
+                e.executeSql('DELETE FROM receita_despesa WHERE id = ' + id);
+            }
+        }, 
+        function(erro){
+            AlertToast('Erro ao excluir!', 'Erro');
+            //AlertToast(erro.code + ' / ' + erro.message);
+        }, 
+        function(){
+            AlertToast('Excluido com sucesso!', 'Sucesso');
+        }
+    );
+}
