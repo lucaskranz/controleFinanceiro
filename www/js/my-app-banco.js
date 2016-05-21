@@ -223,3 +223,34 @@ function BuscarReceitaDespesa(callback, dataInicial, dataFinal, categoria, tipo)
         }
     );
 }
+
+function EditarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao){
+    BancoDados.transaction(
+        function (e){
+            var sql = "";
+            if(id > 0) {
+                sql = 'UPDATE receita_despesa SET categoria = ' + categoria + ', valor = ' + valor + ', data = "' + data + '", quantidade_parcelas = ' + quantidade_parcelas + ', observacao = "' + observacao + '" WHERE id =' + id;
+            } 
+            e.executeSql(sql);
+        }, 
+        function(erro){
+            AlertToast('Erro ao Editar!', 'Erro');
+            //AlertToast(erro.code + ' / ' + erro.message);
+        }, 
+        function(){
+            AlertToast('Edição feita com sucesso!', 'Sucesso');
+        }
+    );
+
+}
+
+
+
+
+
+
+
+
+
+
+
