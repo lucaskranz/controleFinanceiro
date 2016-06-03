@@ -244,31 +244,13 @@ function EditarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, obs
 
 }
 
-function ResultadoCategoria(e, results){
-    var len = results.rows.length, texto = "";
-    for (var i=0; i<len; i++){
-       texto += "Id = " + results.rows.item(i).id + " Descrição =  " + results.rows.item(i).descricao + " Tipo =  " + results.rows.item(i).tipo + "\n";
-    }
-    alert(texto, 'Categoria');
-}
 
-//###################################################################
-//                   Funções que excluem
-//###################################################################
 
-function ExcluiReceitaDespesa(id){
-    BancoDados.transaction(
-        function (e){
-            if(id > 0) {
-                e.executeSql('DELETE FROM receita_despesa WHERE id = ' + id);
-            }
-        }, 
-        function(erro){
-            AlertToast('Erro ao excluir!', 'Erro');
-            //AlertToast(erro.code + ' / ' + erro.message);
-        }, 
-        function(){
-            AlertToast('Excluido com sucesso!', 'Sucesso');
-        }
-    );
-}
+
+
+
+
+
+
+
+

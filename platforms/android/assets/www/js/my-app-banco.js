@@ -204,7 +204,7 @@ function BuscarReceitaDespesa(callback, dataInicial, dataFinal, categoria, tipo)
             }
             e.executeSql(query, [], 
                 function (e, results){
-                    var len = results.rows.length, texto = "";
+                    var len = results.rows.length;
 
                     var resultado = new Array();
                     for (var i=0; i<len; i++){
@@ -224,39 +224,33 @@ function BuscarReceitaDespesa(callback, dataInicial, dataFinal, categoria, tipo)
     );
 }
 
-function ResultadoReceitaDespesa(e, results){
-    var len = results.rows.length, texto = "";
-    for (var i=0; i<len; i++){
-        texto += "Id = " + results.rows.item(i).id + " Categoria =  " + results.rows.item(i).categoria + " Data =  " + results.rows.item(i).data + " Valor =  " + results.rows.item(i).valor + "\n";
-    }
-    alert(texto, 'receita despesa');
-}
-
-function ResultadoCategoria(e, results){
-    var len = results.rows.length, texto = "";
-    for (var i=0; i<len; i++){
-       texto += "Id = " + results.rows.item(i).id + " Descrição =  " + results.rows.item(i).descricao + " Tipo =  " + results.rows.item(i).tipo + "\n";
-    }
-    alert(texto, 'Categoria');
-}
-
-//###################################################################
-//                   Funções que excluem
-//###################################################################
-
-function ExcluiReceitaDespesa(id){
+function EditarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao){
     BancoDados.transaction(
         function (e){
+            var sql = "";
             if(id > 0) {
-                e.executeSql('DELETE FROM receita_despesa WHERE id = ' + id);
-            }
+                sql = 'UPDATE receita_despesa SET categoria = ' + categoria + ', valor = ' + valor + ', data = "' + data + '", quantidade_parcelas = ' + quantidade_parcelas + ', observacao = "' + observacao + '" WHERE id =' + id;
+            } 
+            e.executeSql(sql);
         }, 
         function(erro){
-            AlertToast('Erro ao excluir!', 'Erro');
+            AlertToast('Erro ao Editar!', 'Erro');
             //AlertToast(erro.code + ' / ' + erro.message);
         }, 
         function(){
-            AlertToast('Excluido com sucesso!', 'Sucesso');
+            AlertToast('Edição feita com sucesso!', 'Sucesso');
         }
     );
+
 }
+
+
+
+
+
+
+
+
+
+
+
