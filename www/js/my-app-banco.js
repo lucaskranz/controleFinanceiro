@@ -193,19 +193,29 @@ function BuscarReceitaDespesa(callback, dataInicial, dataFinal, categoria, tipo)
     BancoDados.transaction(
         function (e){
             var query = 'SELECT rd.Id as Id, rd.tipo, rd.valor, rd.data, rd.quantidade_parcelas, rd.observacao, c.descricao FROM receita_despesa rd inner join categoria c on c.id = rd.categoria ';
-            if(dataInicial != '' && dataFinal != ''){
-                query += 'WHERE data >="' + dataInicial + '" and data <= "' + dataFinal + '"';
+            var filter = "";
+            if (dataInicial != '' && dataFinal != '') {
+                filter += "WHERE data >= '" + dataInicial + "' and data <= '" + dataFinal + "'";
             }
-            if(categoria != 0){
-                query += ' and categoria = ' + categoria;
+            if (categoria != 0) {
+                if (filter == "") {
+                    filter += ' where categoria = ' + categoria;
+                } else {
+                    filter += ' and categoria = ' + categoria;
+                }
             }
-            if(tipo != 0){
-                query += ' and tipo = ' + tipo;
+            if (tipo != 0) {
+                if (filter == "") {
+                    filter += ' where rd.tipo = ' + tipo;
+                } else {
+                    filter += ' and rd.tipo = ' + tipo;
+                }
             }
+            query += filter;
+            alert(query);
             e.executeSql(query, [], 
                 function (e, results){
                     var len = results.rows.length;
-
                     var resultado = new Array();
                     for (var i=0; i<len; i++){
                         var linha = {Id: results.rows.item(i).Id, Tipo: results.rows.item(i).tipo, Valor: results.rows.item(i).valor, Data: results.rows.item(i).data, QuantidadeParcelas: results.rows.item(i).quantidade_parcelas, Observacao: results.rows.item(i).observacao, Categoria: results.rows.item(i).descricao};
