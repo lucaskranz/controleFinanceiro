@@ -96,7 +96,7 @@ function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, obs
         function (e){
             var comando = "";
             if(id > 0) {
-                comando = 'UPDATE receita_despesa SET categoria = ' + categoria + ', valor = ' + valor + ', data = "' + data + '", quantidade_parcelas = ' + quantidade_parcelas + ', observacao = "' + observacao + '" WHERE id =' + id;
+                comando = 'UPDATE receita_despesa SET categoria = ' + categoria + ', valor = ' + valor + ', data = "' + data + '", quantidade_parcelas = ' + qtdParcelas + ', observacao = "' + observacao + '" WHERE id =' + id;
             } else {
                 comando = 'INSERT INTO receita_despesa (tipo, categoria, valor, data, quantidade_parcelas, observacao) VALUES (' + tipo + ', ' + categoria + ', ' + valor + ', "' + data + '", ' + qtdParcelas + ', "' + observacao + '")';
             }
@@ -104,7 +104,6 @@ function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, obs
         }, 
         function(erro){
             AlertToast('Erro ao salvar!', 'Erro');
-            //AlertToast(erro.code + ' / ' + erro.message);
         }, 
         function(){
             AlertToast('Salvo com sucesso!', 'Sucesso');
@@ -185,8 +184,7 @@ function TotalReceitaDespesa(callback, dataInicial, dataFinal, categoria){
             AlertToast("Erro ao buscar os totais!", 'Erro');
         }
 
-    );                  
-      
+    );                      
 }
 
 function BuscarReceitaDespesa(callback, dataInicial, dataFinal, categoria, tipo) {
@@ -212,7 +210,6 @@ function BuscarReceitaDespesa(callback, dataInicial, dataFinal, categoria, tipo)
                 }
             }
             query += filter;
-            alert(query);
             e.executeSql(query, [], 
                 function (e, results){
                     var len = results.rows.length;
@@ -225,6 +222,41 @@ function BuscarReceitaDespesa(callback, dataInicial, dataFinal, categoria, tipo)
                 }, 
                 function(erro){
                     AlertToast("Erro ao buscar!", 'Erro');
+                    //Alert(erro.code + ' / ' + erro.message);
+                }
+            );
+        },  
+        function(erro){
+            AlertToast("Erro ao buscar!", 'Erro');
+            //Alert(erro.code + ' / ' + erro.message);
+        }
+    );
+}
+
+function BuscarReceitaDespesaPorId(callback, id) {
+    BancoDados.transaction(
+        function (e){
+            var query = 'SELECT id as Id, tipo, categoria, valor, data, quantidade_parcelas, observacao FROM receita_despesa WHERE id = ' + id;
+            e.executeSql(query, [], 
+                function (e, results){
+                    var len = results.rows.length;
+                    if (len > 0){
+                        var resultado = {
+                            Id: results.rows.item(0).Id, 
+                            Tipo: results.rows.item(0).tipo, 
+                            Categoria: results.rows.item(0).categoria,
+                            Valor: results.rows.item(0).valor, 
+                            Data: results.rows.item(0).data, 
+                            QuantidadeParcelas: results.rows.item(0).quantidade_parcelas, 
+                            Observacao: results.rows.item(0).observacao};
+
+                            callback(resultado);
+                    }else{
+                        AlertToast("Receita/Despesa inválida!", 'Erro');
+                    }
+                }, 
+                function(erro){
+                    AlertToast("Erro ao buscar!", 'Erro');
                 }
             );
         },  
@@ -234,33 +266,24 @@ function BuscarReceitaDespesa(callback, dataInicial, dataFinal, categoria, tipo)
     );
 }
 
-function EditarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao){
+//###################################################################
+//                   Funções que excluem
+//###################################################################
+
+function ExcluiReceitaDespesa(id){
     BancoDados.transaction(
         function (e){
-            var sql = "";
             if(id > 0) {
-                sql = 'UPDATE receita_despesa SET categoria = ' + categoria + ', valor = ' + valor + ', data = "' + data + '", quantidade_parcelas = ' + quantidade_parcelas + ', observacao = "' + observacao + '" WHERE id =' + id;
-            } 
-            e.executeSql(sql);
+                e.executeSql('DELETE FROM receita_despesa WHERE id = ' + id);
+            }
         }, 
         function(erro){
-            AlertToast('Erro ao Editar!', 'Erro');
+            AlertToast('Erro ao excluir!', 'Erro');
             //AlertToast(erro.code + ' / ' + erro.message);
         }, 
         function(){
-            AlertToast('Edição feita com sucesso!', 'Sucesso');
+            AlertToast('Excluido com sucesso!', 'Sucesso');
         }
     );
-
 }
-
-
-
-
-
-
-
-
-
-
 
