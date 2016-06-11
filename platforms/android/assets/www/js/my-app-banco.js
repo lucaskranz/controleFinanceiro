@@ -92,16 +92,9 @@ function SalvarCategoria(id, descricao, tipo){
     );
 }
 
-function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao){ 
+function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao){
     BancoDados.transaction(
         function (e){
-<<<<<<< HEAD
-            var comando = "";
-            if(id > 0) {
-                comando = 'UPDATE receita_despesa SET categoria = ' + categoria + ', valor = ' + valor + ', data = "' + data + '", quantidade_parcelas = ' + qtdParcelas + ', observacao = "' + observacao + '" WHERE id =' + id;
-            } else {
-                comando = 'INSERT INTO receita_despesa (tipo, categoria, valor, data, quantidade_parcelas, observacao) VALUES (' + tipo + ', ' + categoria + ', ' + valor + ', "' + data + '", ' + qtdParcelas + ', "' + observacao + '")';
-=======
             var comando = "", dataConcat = "", res = data.split('/'), diaAux = res[0], dia = res[0], mes = parseInt(res[1]), ano = parseInt(res[2]);
 
             for(var i = 0; i < qtdParcelas; i++){
@@ -130,7 +123,6 @@ function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, obs
                     dia = '28';
                 else
                     dia = diaAux; 
->>>>>>> fee9ba42e9a7e13e3e36f221034dd9c76942315d
             }
         }, 
         function(erro){
