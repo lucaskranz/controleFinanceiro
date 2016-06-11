@@ -95,7 +95,13 @@ function SalvarCategoria(id, descricao, tipo){
 function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao){
     BancoDados.transaction(
         function (e){
-            var comando = "", dataConcat = "", res = data.split('/'), diaAux = res[0], dia = res[0], mes = parseInt(res[1]), ano = parseInt(res[2]);
+            var comando = "", 
+            dataConcat = "", 
+            res = data.split('/'), 
+            diaAux = res[0], 
+            dia = res[0], 
+            mes = parseInt(res[1]), 
+            ano = parseInt(res[2]);
 
             for(var i = 0; i < qtdParcelas; i++){
                 
@@ -234,6 +240,7 @@ function BuscarReceitaDespesa(callback, dataInicial, dataFinal, categoria, tipo)
                 }
             }
             query += filter;
+            alert(query);
             e.executeSql(query, [], 
                 function (e, results){
                     var len = results.rows.length;
