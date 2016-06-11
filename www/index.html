@@ -100,7 +100,7 @@
                     <textarea cols="40" rows="8" name="txtObservacao" id="txtObservacao"></textarea>
                 </div>
 
-                <input type="button" value="Cadastrar" onclick="CadastrarReceitaDespesa()">
+                <input type="button" value="Salvar" onclick="CadastrarReceitaDespesa()">
             </div>
         </div>
         <div data-role="page" id="CadastroCategoria" data-theme="a">
@@ -315,6 +315,7 @@
 	            $('#txtObservacao').val(result.Observacao);
         	}
         	BuscarReceitaDespesaPorId(resultado, id);
+
         }
 
     </script>
@@ -401,9 +402,71 @@
                     }
                     html += "<li onclick = 'EditaExcluiReceitaDespesa(" + result[i].Id + ")' id='li_" + result[i].Id + "' style='color:" + color + "'>";
                     html += "<h2>" + result[i].Categoria + "</h2>";
-                    html += "<p><strong>" + result[i].Data + "</strong></p>";
-                    html += "<p>" + result[i].Observacao + "</p>";
-                    html += "<div class='ui-li-aside'><p><strong>" + result[i].Valor + "</strong></p>";
+                    if(result[i].Valor % 1 == 0){
+                        result[i].Valor += ".00";
+                    }else{
+                        var tempValor = result[i].Valor;
+                        tempValor = tempValor.toString().split('.');
+                        if(tempValor[1].length == 1){
+                            result[i].Valor = tempValor[0] + "." + tempValor[1] + "0";
+                        }else if(tempValor[1].length > 2){
+                            tempValor[1] = tempValor[1].get(0) + "" + tempValor[1].get(1);
+                        }
+
+                    }
+
+                    if(result[i].QuantidadeParcelas > 1){
+                        html+= "<p>";
+
+                        var tempParcela = result[i].Valor/result[i].QuantidadeParcelas;
+                        if(tempParcela % 1 == 0){
+                            tempParcela += ".00";
+                        }else{
+                            var tempValorParcela = tempParcela;
+                            tempValorParcela = tempValorParcela.toString().split('.');
+                            if(tempValorParcela[1].length == 1){
+                                tempParcela = tempValorParcela[0] + "." + tempValorParcela[1] + "0";
+                            }else if(tempValorParcela[1].length > 2){
+                                aux = tempValorParcela[1];
+                                tempParcela = tempValorParcela[0] + "." + aux[0] + "" + aux[1];
+                            }
+
+                        }
+                        var dataConcat = "", 
+                        res = result[i].Data.split('/'), 
+                        diaAux = res[0], 
+                        dia = res[0], 
+                        mes = parseInt(res[1]), 
+                        ano = parseInt(res[2]);
+                        for(count = 1; count <= result[i].QuantidadeParcelas; count++){
+                            if (mes.toString().length == 1)
+                                dataConcat = dia + '/' + '0'+mes + '/' + ano;
+                            else
+                                dataConcat = dia + '/' + mes + '/' + ano;
+
+                            //alert("dataConcat " + dataConcat);
+                            if(mes == 12){
+                                mes = 1;
+                                ano++;
+                            }else 
+                                mes++;
+
+                            if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && (parseInt(dia) > 30))
+                                dia = '30';       
+                            else if(mes == 2 && parseInt(dia) > 28)
+                                dia = '28';
+                            else
+                                dia = diaAux; 
+
+                            html += "Parcela " + count + ": R$ " +  tempParcela  + ". Data " + dataConcat + "<br\>";
+                        }
+                        html += "</p>";   
+                    }else{
+                        html += "<p><strong>" + result[i].Data + "</strong></p>";
+                    }   
+                    html += "<p><strong>" + result[i].Observacao + "</strong></p>";  
+                    html += "<div class='ui-li-aside'><p><strong>Valor R$" + result[i].Valor + "</strong></p>";
+                    html += "<p><strong>" + "Qt. Parcelas " + result[i].QuantidadeParcelas + "</strong></p>";
                     html += "</div>";
                     html += "</li>";
                 }
