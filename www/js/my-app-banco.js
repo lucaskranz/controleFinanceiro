@@ -104,12 +104,6 @@ function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, obs
                 else
                     dataConcat = dia + '/' + mes + '/' + ano;
 
-                if(id > 0) {
-                    comando = 'UPDATE receita_despesa SET categoria = ' + categoria + ', valor = ' + (valor/qtdParcelas) + ', data = "' + dataConcat + '", quantidade_parcelas = ' + quantidade_parcelas + ', observacao = "' + observacao + '" WHERE id =' + id;
-                } else {
-                    comando = 'INSERT INTO receita_despesa (tipo, categoria, valor, data, quantidade_parcelas, observacao) VALUES (' + tipo + ', ' + categoria + ', ' + (valor/qtdParcelas) + ', "' + dataConcat + '", ' + qtdParcelas + ', "' + observacao + '")';
-                }
-                e.executeSql(comando); 
                 if(mes == 12){
                     mes = 1;
                     ano++;
@@ -123,6 +117,13 @@ function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, obs
                     dia = '28';
                 else
                     dia = diaAux; 
+
+                if(id > 0) {
+                    comando = 'UPDATE receita_despesa SET categoria = ' + categoria + ', valor = ' + (valor/qtdParcelas) + ', data = "' + dataConcat + '", quantidade_parcelas = ' + qtdParcelas + ', observacao = "' + observacao + '" WHERE id =' + id;
+                } else {
+                    comando = 'INSERT INTO receita_despesa (tipo, categoria, valor, data, quantidade_parcelas, observacao) VALUES (' + tipo + ', ' + categoria + ', ' + (valor/qtdParcelas) + ', "' + dataConcat + '", ' + qtdParcelas + ', "' + observacao + '")';
+                }
+                e.executeSql(comando);
             }
         }, 
         function(erro){
