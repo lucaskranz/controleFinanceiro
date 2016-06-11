@@ -19,6 +19,7 @@
 </head>
 <body>
     <form>
+    	<input type="hidden" id="hddIdReceitaDespesa" value = "0" />
         <div data-role="page" id="index" data-theme="a">
             <div data-role="panel" data-display="overlay" id="menuPanel">
                 <div data-role="header">
@@ -165,6 +166,13 @@
                 <ul id="ListaReceitasDespesas" data-role="listview" data-inset="true">
                 </ul>
             </div>
+			<div data-role="popup" id="popupExcluirEditar" data-theme="a">
+			        <ul data-role="listview" data-inset="true" >
+			            <li data-role="list-divider">Escolha uma ação</li>
+			            <li onclick="EditarRecDesp()">Editar</li>
+			            <li onclick="ExcluirRecDesp()">Excluir</li>
+			        </ul>
+			</div>
         </div>
     </form>
     <script type="text/javascript" src="cordova.js"></script>
@@ -220,13 +228,16 @@
             dateFormat: "dd/mm/yy"
         });
 
-        function CarregarCategoria(tipo) {
+        function CarregarCategoria(tipo, id) {
             var resultado = function (result) {
                 var sltTipoPagamentoDespesa = document.getElementById("select-categoria");
                 $('#select-categoria').empty();
                 for (var i = 0; i < result.length; i++) {
                     sltTipoPagamentoDespesa.options[i] = new Option(result[i].Descricao, result[i].Id);
                 }
+				if(id > 0){
+					$('#select-categoria').val(id);
+				}
                 $("#select-categoria").selectmenu("refresh", true);
             };
 
@@ -235,7 +246,7 @@
 
         function CadastrarReceitaDespesa() {
 
-            var id = 0; // pois esta salvando, quando editar passa o id
+            var id = $("#hddIdReceitaDespesa").val(); // pois esta salvando, quando editar passa o id
             var tipo; // receita = 2 ou despesa = 1
             if ($('#radio-despesa')[0].checked == true) {
                 tipo = 1;
@@ -271,7 +282,6 @@
             if (qtdParcelas.trim() == '') {
                 qtdParcelas = 0;
             }
-
             SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao);
             BuscarSaldo();
             LimparCadastroReceitaDespesa();
@@ -282,6 +292,30 @@
             $('#txtData').val('');
             $('#txtQtdParcela').val('1');
             $('#txtObservacao').val('');
+            $("#hddIdReceitaDespesa").val('0');
+        }
+
+        function EditarCadastroReceitaDespesa(id){
+        	var resultado = function (result) {
+        		CarregarCategoria(result.Tipo, result.Categoria);
+        		$("#hddIdReceitaDespesa").val(id);
+	            if (result.Tipo == 1) {
+	                $('#radio-despesa')[0].checked = true;
+	                $('#radio-receita')[0].checked = false;
+	            } else {
+	                $('#radio-receita')[0].checked = true;
+	                $('#radio-despesa')[0].checked = false;
+	            }
+
+	            $('#radio-receita').checkboxradio( "refresh" );
+	            $('#radio-despesa').checkboxradio( "refresh" );
+
+	            $('#txtValor').val(result.Valor);
+	            $('#txtData').val(result.Data);
+	            $('#txtQtdParcela').val(result.QuantidadeParcelas);
+	            $('#txtObservacao').val(result.Observacao);
+        	}
+        	BuscarReceitaDespesaPorId(resultado, id);
         }
 
     </script>
@@ -366,14 +400,12 @@
                         color = "Green";
                         Receita += result[i].Valor;
                     }
-                    html += "<li data-icon='delete' id='li_" + result[i].Id + "' style='color:" + color + "'>";
-                    //html += "<a href=''>";
+                    html += "<li onclick = 'EditaExcluiReceitaDespesa(" + result[i].Id + ")' id='li_" + result[i].Id + "' style='color:" + color + "'>";
                     html += "<h2>" + result[i].Categoria + "</h2>";
                     html += "<p><strong>" + result[i].Data + "</strong></p>";
                     html += "<p>" + result[i].Observacao + "</p>";
-                    html += "<p class='ui-li-aside'><strong>" + result[i].Valor + "</strong></p>";
-                    html += "<p class='ui-li-aside'><strong>" + excluir + "</strong></p>";
-                    //html += "</a>";
+                    html += "<div class='ui-li-aside'><p><strong>" + result[i].Valor + "</strong></p>";
+                    html += "</div>";
                     html += "</li>";
                 }
                 $('#ListaReceitasDespesas').html(html);
@@ -399,9 +431,26 @@
                 Tipo = 2;
             }
 
-            BuscarReceitaDespesa(resultado, "11/05/2016", "13/06/2016", Categoria, Tipo);
+            BuscarReceitaDespesa(resultado, "", "", Categoria, Tipo);
         }
 
+        function EditaExcluiReceitaDespesa(id){
+        	$("#hddIdReceitaDespesa").val(id);
+        	$("#popupExcluirEditar").popup("open", {transition: "slidedown"});
+        }
+
+        function EditarRecDesp(){
+        	var id = $("#hddIdReceitaDespesa").val();
+        	$.mobile.changePage("#CadastroReceitaDespesa");
+        	EditarCadastroReceitaDespesa(id);
+        }
+
+		function ExcluirRecDesp(){
+        	var id = $("#hddIdReceitaDespesa").val();
+        	$("#popupExcluirEditar").popup("close");
+        	ExcluiReceitaDespesa(id);
+        	BuscarReceitasDespesas();
+        }
     </script>
 
 </body>
