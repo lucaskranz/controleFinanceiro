@@ -11,6 +11,7 @@ function onDeviceReady() {
     // crias as tabelas se não existe
     BancoDados.transaction(
         function (e){
+            //e.executeSql('DROP table receita_despesa');
             e.executeSql('CREATE TABLE IF NOT EXISTS categoria (id INTEGER PRIMARY KEY, descricao INTEGER, tipo INTEGER);');
             e.executeSql('CREATE TABLE IF NOT EXISTS receita_despesa (id INTEGER PRIMARY KEY, tipo INTEGER, categoria INTEGER, valor NUMERIC, data TEXT, quantidade_parcelas INTEGER, observacao TEXT, FOREIGN KEY(categoria) REFERENCES categoria(id));');
         }, 
@@ -91,16 +92,46 @@ function SalvarCategoria(id, descricao, tipo){
     );
 }
 
-function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao){
+function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, observacao){ 
     BancoDados.transaction(
         function (e){
+<<<<<<< HEAD
             var comando = "";
             if(id > 0) {
                 comando = 'UPDATE receita_despesa SET categoria = ' + categoria + ', valor = ' + valor + ', data = "' + data + '", quantidade_parcelas = ' + qtdParcelas + ', observacao = "' + observacao + '" WHERE id =' + id;
             } else {
                 comando = 'INSERT INTO receita_despesa (tipo, categoria, valor, data, quantidade_parcelas, observacao) VALUES (' + tipo + ', ' + categoria + ', ' + valor + ', "' + data + '", ' + qtdParcelas + ', "' + observacao + '")';
+=======
+            var comando = "", dataConcat = "", res = data.split('/'), diaAux = res[0], dia = res[0], mes = parseInt(res[1]), ano = parseInt(res[2]);
+
+            for(var i = 0; i < qtdParcelas; i++){
+                
+                if (mes.toString().length == 1)
+                    dataConcat = dia + '/' + '0'+mes + '/' + ano;
+                else
+                    dataConcat = dia + '/' + mes + '/' + ano;
+
+                if(id > 0) {
+                    comando = 'UPDATE receita_despesa SET categoria = ' + categoria + ', valor = ' + (valor/qtdParcelas) + ', data = "' + dataConcat + '", quantidade_parcelas = ' + quantidade_parcelas + ', observacao = "' + observacao + '" WHERE id =' + id;
+                } else {
+                    comando = 'INSERT INTO receita_despesa (tipo, categoria, valor, data, quantidade_parcelas, observacao) VALUES (' + tipo + ', ' + categoria + ', ' + (valor/qtdParcelas) + ', "' + dataConcat + '", ' + qtdParcelas + ', "' + observacao + '")';
+                }
+                e.executeSql(comando); 
+                if(mes == 12){
+                    mes = 1;
+                    ano++;
+                }
+                else
+                    mes++;
+
+                if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && (parseInt(dia) > 30))
+                    dia = '30';       
+                else if(mes == 2 && parseInt(dia) > 28)
+                    dia = '28';
+                else
+                    dia = diaAux; 
+>>>>>>> fee9ba42e9a7e13e3e36f221034dd9c76942315d
             }
-            e.executeSql(comando);
         }, 
         function(erro){
             AlertToast('Erro ao salvar!', 'Erro');
