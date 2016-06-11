@@ -102,13 +102,16 @@ function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, obs
             dia = res[0], 
             mes = parseInt(res[1]), 
             ano = parseInt(res[2]);
-
+            //alert("ano " + ano);
             for(var i = 0; i < qtdParcelas; i++){
                 
                 if (mes.toString().length == 1)
                     dataConcat = dia + '/' + '0'+mes + '/' + ano;
                 else
                     dataConcat = dia + '/' + mes + '/' + ano;
+
+                //alert("dataConcat " + dataConcat);
+
 
                 if(mes == 12){
                     mes = 1;
@@ -125,9 +128,10 @@ function SalvarReceitaDespesa(id, tipo, categoria, valor, data, qtdParcelas, obs
                     dia = diaAux; 
 
                 if(id > 0) {
-                    comando = 'UPDATE receita_despesa SET categoria = ' + categoria + ', valor = ' + (valor/qtdParcelas) + ', data = "' + dataConcat + '", quantidade_parcelas = ' + qtdParcelas + ', observacao = "' + observacao + '" WHERE id =' + id;
+                    comando = 'UPDATE receita_despesa SET categoria = ' + categoria + ', valor = ' + valor + ', data = "' + dataConcat + '", quantidade_parcelas = ' + qtd
+                    las + ', observacao = "' + observacao + '" WHERE id =' + id;
                 } else {
-                    comando = 'INSERT INTO receita_despesa (tipo, categoria, valor, data, quantidade_parcelas, observacao) VALUES (' + tipo + ', ' + categoria + ', ' + (valor/qtdParcelas) + ', "' + dataConcat + '", ' + qtdParcelas + ', "' + observacao + '")';
+                    comando = 'INSERT INTO receita_despesa (tipo, categoria, valor, data, quantidade_parcelas, observacao) VALUES (' + tipo + ', ' + categoria + ', ' + (valor) + ', "' + dataConcat + '", ' + qtdParcelas + ', "' + observacao + '")';
                 }
                 e.executeSql(comando);
             }
@@ -178,6 +182,7 @@ function BuscarCategoria(callback, tipo) {
 
 function TotalReceitaDespesa(callback, dataInicial, dataFinal, categoria){
     var query='SELECT SUM(valor) AS total, tipo FROM receita_despesa';
+    //alert("data inicial " + dataInicial + " data final " + dataFinal);
     BancoDados.transaction(
         function (e){
             if(dataInicial != '' && dataFinal != ''){
@@ -240,7 +245,7 @@ function BuscarReceitaDespesa(callback, dataInicial, dataFinal, categoria, tipo)
                 }
             }
             query += filter;
-            alert(query);
+            //alert(query);
             e.executeSql(query, [], 
                 function (e, results){
                     var len = results.rows.length;
